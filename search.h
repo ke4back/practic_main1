@@ -8,83 +8,289 @@ namespace practicmain1 {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::IO;
+	using namespace System::Collections::Generic;
 
 	/// <summary>
 	/// Summary for search
 	/// </summary>
-	public ref class search : public System::Windows::Forms::Form
-	{
+
+	public ref class Route {
 	public:
-		search(void)
-		{
-			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
-		}
+		property int Number;
+		property String^ Destination;
+		property String^ Date;
+		property String^ Time;
+		property int SeatsCount;
+		property int Price;
+	};
 
-	protected:
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		~search()
-		{
-			if (components)
-			{
-				delete components;
-			}
-		}
-	private: System::Windows::Forms::DataGridView^ main_table;
-	private: System::Windows::Forms::CheckBox^ check_price;
-	protected:
-	private: System::Windows::Forms::CheckBox^ check_number;
-	private: System::Windows::Forms::CheckBox^ check_date;
-	private: System::Windows::Forms::CheckBox^ check_time;
-	private: System::Windows::Forms::CheckBox^ check_destination;
-	private: System::Windows::Forms::CheckBox^ check_seats_count;
+	public ref class search : public System::Windows::Forms::Form
+    {
+    public:
+        search(void)
+        {
+            InitializeComponent();
+            LoadRoutesFromFile();
+            UpdateDataGridView();
+            
+            // Настройка масок ввода
+            maskedTextBox_date->Mask = "00/00/0000";
+            maskedTextBox_time->Mask = "00:00";
+        }
 
+    protected:
+        ~search()
+        {
+            if (components)
+            {
+                delete components;
+            }
+        }
 
+    private:
+        List<Route^>^ allRoutes;
+        List<Route^>^ filteredRoutes;
 
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ index;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ number;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ destination;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ date;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ time;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ seats_count;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ price;
+        void LoadRoutesFromFile()
+        {
+            allRoutes = gcnew List<Route^>();
+            filteredRoutes = gcnew List<Route^>();
 
+            try
+            {
+                StreamReader^ reader = gcnew StreamReader("routes.txt", System::Text::Encoding::GetEncoding(1251));
+                
+                while (!reader->EndOfStream)
+                {
+                    String^ line = reader->ReadLine();
+                    array<String^>^ parts = line->Split(' ');
 
+                    if (parts->Length >= 6)
+                    {
+                        Route^ route = gcnew Route();
+                        route->Number = Int32::Parse(parts[0]);
+                        route->Destination = parts[1];
+                        route->Date = parts[2];
+                        route->Time = parts[3];
+                        route->SeatsCount = Int32::Parse(parts[4]);
+                        route->Price = Int32::Parse(parts[5]);
+                        
+                        allRoutes->Add(route);
+                        filteredRoutes->Add(route);
+                    }
+                }
+                reader->Close();
+            }
+            catch (Exception^ ex)
+            {
+                MessageBox::Show("Ошибка загрузки данных: " + ex->Message, 
+                               "Ошибка", 
+                               MessageBoxButtons::OK, 
+                               MessageBoxIcon::Error);
+            }
+        }
 
-	private: System::Windows::Forms::Label^ search_info;
-	private: System::Windows::Forms::Button^ search_button;
-	private: System::Windows::Forms::Button^ search_reset;
-	private: System::Windows::Forms::CheckBox^ time_later;
-	private: System::Windows::Forms::CheckBox^ time_earlier;
-	private: System::Windows::Forms::CheckBox^ time_coincidence;
-	private: System::Windows::Forms::CheckBox^ date_later;
-	private: System::Windows::Forms::CheckBox^ date_earlier;
-	private: System::Windows::Forms::CheckBox^ date_coincidence;
-	private: System::Windows::Forms::Button^ search_back;
-	private: System::Windows::Forms::Button^ search_exit;
-	private: System::Windows::Forms::MaskedTextBox^ maskedTextBox_price;
-	private: System::Windows::Forms::MaskedTextBox^ maskedTextBox_date;
-	private: System::Windows::Forms::MaskedTextBox^ maskedTextBox_time;
-	private: System::Windows::Forms::MaskedTextBox^ maskedTextBox_number;
-	private: System::Windows::Forms::MaskedTextBox^ maskedTextBox_dest;
-	private: System::Windows::Forms::MaskedTextBox^ maskedTextBox_count;
-	private: System::Windows::Forms::Label^ wrong_data;
+        void UpdateDataGridView()
+        {
+            main_table->Rows->Clear();
+            
+            for (int i = 0; i < filteredRoutes->Count; i++)
+            {
+                Route^ route = filteredRoutes[i];
+                main_table->Rows->Add(
+                    i + 1,
+                    route->Number,
+                    route->Destination,
+                    route->Date,
+                    route->Time,
+                    route->SeatsCount,
+                    route->Price
+                );
+            }
+        }
 
-	private:
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		System::ComponentModel::Container ^components;
+        bool ValidateInput()
+        {
+            wrong_data->Visible = false;
+            bool isValid = true;
 
-#pragma region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
+            // Проверка цены
+            if (check_price->Checked)
+            {
+                int price;
+                if (!Int32::TryParse(maskedTextBox_price->Text, price) || price <= 0 || price > 100000)
+                {
+                    wrong_data->Visible = true;
+                    isValid = false;
+                }
+            }
+
+            // Проверка номера рейса
+            if (check_number->Checked)
+            {
+                int number;
+                if (!Int32::TryParse(maskedTextBox_number->Text, number) || number <= 0 || number > 9999)
+                {
+                    wrong_data->Visible = true;
+                    isValid = false;
+                }
+            }
+
+            // Проверка даты
+            if (check_date->Checked)
+            {
+                DateTime date;
+                if (!DateTime::TryParse(maskedTextBox_date->Text, date))
+                {
+                    wrong_data->Visible = true;
+                    isValid = false;
+                }
+            }
+
+            // Проверка времени
+            if (check_time->Checked)
+            {
+                TimeSpan time;
+                if (!TimeSpan::TryParse(maskedTextBox_time->Text + ":00", time))
+                {
+                    wrong_data->Visible = true;
+                    isValid = false;
+                }
+            }
+
+            // Проверка количества мест
+            if (check_seats_count->Checked)
+            {
+                int count;
+                if (!Int32::TryParse(maskedTextBox_count->Text, count) || count <= 0 || count > 200)
+                {
+                    wrong_data->Visible = true;
+                    isValid = false;
+                }
+            }
+
+            return isValid;
+        }
+
+        void PerformSearch()
+        {
+            if (!ValidateInput())
+                return;
+
+            filteredRoutes->Clear();
+
+            for each (Route ^ route in allRoutes)
+            {
+                bool matches = true;
+
+                // Поиск по цене
+                if (check_price->Checked && !String::IsNullOrEmpty(maskedTextBox_price->Text))
+                {
+                    int maxPrice = Int32::Parse(maskedTextBox_price->Text);
+                    if (route->Price > maxPrice)
+                        matches = false;
+                }
+
+                // Поиск по номеру рейса
+                if (check_number->Checked && !String::IsNullOrEmpty(maskedTextBox_number->Text))
+                {
+                    int searchNumber = Int32::Parse(maskedTextBox_number->Text);
+                    if (route->Number != searchNumber)
+                        matches = false;
+                }
+
+                // Поиск по пункту назначения
+                if (check_destination->Checked && !String::IsNullOrEmpty(maskedTextBox_dest->Text))
+                {
+                    if (!route->Destination->ToLower()->Contains(maskedTextBox_dest->Text->ToLower()))
+                        matches = false;
+                }
+
+                // Поиск по дате
+                if (check_date->Checked && !String::IsNullOrEmpty(maskedTextBox_date->Text))
+                {
+                    DateTime searchDate = DateTime::Parse(maskedTextBox_date->Text);
+                    DateTime routeDate = DateTime::Parse(route->Date);
+
+                    if (date_coincidence->Checked && route->Date != maskedTextBox_date->Text)
+                        matches = false;
+                    else if (date_earlier->Checked && routeDate >= searchDate)
+                        matches = false;
+                    else if (date_later->Checked && routeDate <= searchDate)
+                        matches = false;
+                }
+
+                // Поиск по времени
+                if (check_time->Checked && !String::IsNullOrEmpty(maskedTextBox_time->Text))
+                {
+                    TimeSpan searchTime = TimeSpan::Parse(maskedTextBox_time->Text + ":00");
+                    TimeSpan routeTime = TimeSpan::Parse(route->Time + ":00");
+
+                    if (time_coincidence->Checked && route->Time != maskedTextBox_time->Text)
+                        matches = false;
+                    else if (time_earlier->Checked && routeTime >= searchTime)
+                        matches = false;
+                    else if (time_later->Checked && routeTime <= searchTime)
+                        matches = false;
+                }
+
+                // Поиск по количеству мест
+                if (check_seats_count->Checked && !String::IsNullOrEmpty(maskedTextBox_count->Text))
+                {
+                    int minSeats = Int32::Parse(maskedTextBox_count->Text);
+                    if (route->SeatsCount < minSeats)
+                        matches = false;
+                }
+
+                if (matches)
+                    filteredRoutes->Add(route);
+            }
+
+            UpdateDataGridView();
+        }
+
+    private:
+        System::Windows::Forms::DataGridView^ main_table;
+        System::Windows::Forms::CheckBox^ check_price;
+        System::Windows::Forms::CheckBox^ check_number;
+        System::Windows::Forms::CheckBox^ check_date;
+        System::Windows::Forms::CheckBox^ check_time;
+        System::Windows::Forms::CheckBox^ check_destination;
+        System::Windows::Forms::CheckBox^ check_seats_count;
+        System::Windows::Forms::DataGridViewTextBoxColumn^ index;
+        System::Windows::Forms::DataGridViewTextBoxColumn^ number;
+        System::Windows::Forms::DataGridViewTextBoxColumn^ destination;
+        System::Windows::Forms::DataGridViewTextBoxColumn^ date;
+        System::Windows::Forms::DataGridViewTextBoxColumn^ time;
+        System::Windows::Forms::DataGridViewTextBoxColumn^ seats_count;
+        System::Windows::Forms::DataGridViewTextBoxColumn^ price;
+        System::Windows::Forms::Label^ search_info;
+        System::Windows::Forms::Button^ search_button;
+        System::Windows::Forms::Button^ search_reset;
+        System::Windows::Forms::CheckBox^ time_later;
+        System::Windows::Forms::CheckBox^ time_earlier;
+        System::Windows::Forms::CheckBox^ time_coincidence;
+        System::Windows::Forms::CheckBox^ date_later;
+        System::Windows::Forms::CheckBox^ date_earlier;
+        System::Windows::Forms::CheckBox^ date_coincidence;
+        System::Windows::Forms::Button^ search_back;
+        System::Windows::Forms::Button^ search_exit;
+        System::Windows::Forms::MaskedTextBox^ maskedTextBox_price;
+        System::Windows::Forms::MaskedTextBox^ maskedTextBox_date;
+        System::Windows::Forms::MaskedTextBox^ maskedTextBox_time;
+        System::Windows::Forms::MaskedTextBox^ maskedTextBox_number;
+        System::Windows::Forms::MaskedTextBox^ maskedTextBox_dest;
+        System::Windows::Forms::MaskedTextBox^ maskedTextBox_count;
+        System::Windows::Forms::Label^ wrong_data;
+
+        System::ComponentModel::Container ^components;
+
+        #pragma region Windows Form Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
 		void InitializeComponent(void)
 		{
 			this->main_table = (gcnew System::Windows::Forms::DataGridView());
@@ -248,7 +454,6 @@ namespace practicmain1 {
 			this->search_info->Size = System::Drawing::Size(397, 25);
 			this->search_info->TabIndex = 4;
 			this->search_info->Text = L"Меню поиска среди записей базы данных";
-			this->search_info->Click += gcnew System::EventHandler(this, &search::search_info_Click);
 			// 
 			// search_button
 			// 
@@ -258,6 +463,7 @@ namespace practicmain1 {
 			this->search_button->TabIndex = 5;
 			this->search_button->Text = L"Поиск";
 			this->search_button->UseVisualStyleBackColor = true;
+			this->search_button->Click += gcnew System::EventHandler(this, &search::search_button_Click);
 			// 
 			// search_reset
 			// 
@@ -343,7 +549,7 @@ namespace practicmain1 {
 			this->search_back->TabIndex = 5;
 			this->search_back->Text = L"Вернуться к таблице";
 			this->search_back->UseVisualStyleBackColor = true;
-			this->search_back->Click += gcnew System::EventHandler(this, &search::button1_Click);
+			this->search_back->Click += gcnew System::EventHandler(this, &search::search_back_Click);
 			// 
 			// search_exit
 			// 
@@ -455,46 +661,69 @@ namespace practicmain1 {
 
 		}
 #pragma endregion
-	private: System::Void search_info_Click(System::Object^ sender, System::EventArgs^ e) {
-	}
-private: System::Void textBox2_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void check_date_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
-	if (this->date_later->Visible == false)
-	{
-		this->date_later->Visible = true;
-		this->date_coincidence->Visible = true;
-		this->date_earlier->Visible = true;
-	}
-	else
-	{
-		this->date_later->Visible = false;
-		this->date_coincidence->Visible = false;
-		this->date_earlier->Visible = false;
-	}
-}
-private: System::Void check_time_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
-	if (this->time_later->Visible == false)
-	{
-		this->time_later->Visible = true;
-		this->time_coincidence->Visible = true;
-		this->time_earlier->Visible = true;
-	}
-	else
-	{
-		this->time_later->Visible = false;
-		this->time_coincidence->Visible = false;
-		this->time_earlier->Visible = false;
-	}
-}
-private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void search_exit_Click(System::Object^ sender, System::EventArgs^ e) {
-	this->Close();
-}
-private: System::Void search_reset_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-}
-};
+
+	private:
+		System::Void search_button_Click(System::Object^ sender, System::EventArgs^ e)
+		{
+			PerformSearch();
+		}
+
+		System::Void search_reset_Click(System::Object^ sender, System::EventArgs^ e)
+		{
+			// Сброс всех фильтров
+			check_price->Checked = false;
+			check_number->Checked = false;
+			check_destination->Checked = false;
+			check_date->Checked = false;
+			check_time->Checked = false;
+			check_seats_count->Checked = false;
+
+			maskedTextBox_price->Text = "";
+			maskedTextBox_number->Text = "";
+			maskedTextBox_dest->Text = "";
+			maskedTextBox_date->Text = "";
+			maskedTextBox_time->Text = "";
+			maskedTextBox_count->Text = "";
+
+			date_later->Visible = false;
+			date_coincidence->Visible = false;
+			date_earlier->Visible = false;
+			time_later->Visible = false;
+			time_coincidence->Visible = false;
+			time_earlier->Visible = false;
+
+			wrong_data->Visible = false;
+
+			// Показать все записи
+			filteredRoutes->Clear();
+			for each (Route ^ route in allRoutes)
+				filteredRoutes->Add(route);
+
+			UpdateDataGridView();
+		}
+
+		System::Void search_back_Click(System::Object^ sender, System::EventArgs^ e)
+		{
+			this->Close();
+		}
+
+		System::Void search_exit_Click(System::Object^ sender, System::EventArgs^ e)
+		{
+			Application::Exit();
+		}
+
+		System::Void check_date_CheckedChanged(System::Object^ sender, System::EventArgs^ e)
+		{
+			date_later->Visible = check_date->Checked;
+			date_coincidence->Visible = check_date->Checked;
+			date_earlier->Visible = check_date->Checked;
+		}
+
+		System::Void check_time_CheckedChanged(System::Object^ sender, System::EventArgs^ e)
+		{
+			time_later->Visible = check_time->Checked;
+			time_coincidence->Visible = check_time->Checked;
+			time_earlier->Visible = check_time->Checked;
+		}
+	};
 }
