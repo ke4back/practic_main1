@@ -10,6 +10,7 @@ namespace practicmain1 {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::IO;
 
 	/// <summary>
 	/// Summary for table
@@ -20,9 +21,7 @@ namespace practicmain1 {
 		table(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
+			LoadRoutesData();
 		}
 
 	protected:
@@ -37,19 +36,7 @@ namespace practicmain1 {
 			}
 		}
 
-
-
-
-
-
-
-
 	private: System::Windows::Forms::Label^ table_name;
-
-
-
-
-
 
 	private: System::Windows::Forms::Button^ search_routes_button;
 
@@ -64,32 +51,9 @@ namespace practicmain1 {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ seats_count;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ price;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	protected:
 
-
-
-
-
-
-
-
 	protected:
-
 
 	private:
 		/// <summary>
@@ -102,6 +66,45 @@ namespace practicmain1 {
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
+		
+		void LoadRoutesData()
+		{
+			try
+			{
+				// Очищаем таблицу перед загрузкой новых данных
+				main_table->Rows->Clear();
+
+				StreamReader^ reader = gcnew StreamReader("routes.txt", System::Text::Encoding::GetEncoding(1251));
+				int index = 1;
+
+				while (!reader->EndOfStream)
+				{
+					String^ line = reader->ReadLine();
+					array<String^>^ parts = line->Split(' ');
+
+					if (parts->Length >= 6)
+					{
+						main_table->Rows->Add(
+							index++,                  // Индекс
+							parts[0],                // Номер рейса
+							parts[1],                // Пункт назначения
+							parts[2],                // Дата
+							parts[3],                // Время
+							parts[4],                // Количество мест
+							parts[5]                // Цена
+						);
+					}
+				}
+			}
+			catch (Exception^ ex)
+			{
+				MessageBox::Show("Ошибка при загрузке данных: " + ex->Message,
+					"Ошибка",
+					MessageBoxButtons::OK,
+					MessageBoxIcon::Error);
+			}
+		}
+
 		void InitializeComponent(void)
 		{
 			this->table_name = (gcnew System::Windows::Forms::Label());
@@ -235,10 +238,11 @@ namespace practicmain1 {
 	}
 private: System::Void search_routes_button_Click(System::Object^ sender, System::EventArgs^ e) {
 	search^ Search = gcnew search();
-	this->Close();
 	Search->Show();
+	this->Hide();	
 }
 private: System::Void table_Load(System::Object^ sender, System::EventArgs^ e) {
+	LoadRoutesData();
 }
 };
 }
