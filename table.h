@@ -133,7 +133,7 @@ namespace practicmain1 {
 			// 
 			this->search_routes_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->search_routes_button->Location = System::Drawing::Point(18, 599);
+			this->search_routes_button->Location = System::Drawing::Point(18, 590);
 			this->search_routes_button->Name = L"search_routes_button";
 			this->search_routes_button->Size = System::Drawing::Size(150, 50);
 			this->search_routes_button->TabIndex = 2;
