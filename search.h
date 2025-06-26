@@ -42,9 +42,9 @@ namespace practicmain1 {
 	private: System::Windows::Forms::CheckBox^ check_time;
 	private: System::Windows::Forms::CheckBox^ check_destination;
 	private: System::Windows::Forms::CheckBox^ check_seats_count;
-	private: System::Windows::Forms::TextBox^ textBox1;
-	private: System::Windows::Forms::TextBox^ textBox2;
-	private: System::Windows::Forms::TextBox^ textBox3;
+
+
+
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ index;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ number;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ destination;
@@ -52,9 +52,9 @@ namespace practicmain1 {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ time;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ seats_count;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ price;
-	private: System::Windows::Forms::TextBox^ textBox4;
-	private: System::Windows::Forms::TextBox^ textBox5;
-	private: System::Windows::Forms::TextBox^ textBox6;
+
+
+
 	private: System::Windows::Forms::Label^ search_info;
 	private: System::Windows::Forms::Button^ search_button;
 	private: System::Windows::Forms::Button^ search_reset;
@@ -66,6 +66,14 @@ namespace practicmain1 {
 	private: System::Windows::Forms::CheckBox^ date_coincidence;
 	private: System::Windows::Forms::Button^ search_back;
 	private: System::Windows::Forms::Button^ search_exit;
+	private: System::Windows::Forms::MaskedTextBox^ maskedTextBox_price;
+	private: System::Windows::Forms::MaskedTextBox^ maskedTextBox_date;
+	private: System::Windows::Forms::MaskedTextBox^ maskedTextBox_time;
+	private: System::Windows::Forms::MaskedTextBox^ maskedTextBox_number;
+	private: System::Windows::Forms::MaskedTextBox^ maskedTextBox_dest;
+	private: System::Windows::Forms::MaskedTextBox^ maskedTextBox_count;
+	private: System::Windows::Forms::Label^ wrong_data;
+
 	private:
 		/// <summary>
 		/// Required designer variable.
@@ -93,12 +101,6 @@ namespace practicmain1 {
 			this->check_time = (gcnew System::Windows::Forms::CheckBox());
 			this->check_destination = (gcnew System::Windows::Forms::CheckBox());
 			this->check_seats_count = (gcnew System::Windows::Forms::CheckBox());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox3 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox4 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox5 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox6 = (gcnew System::Windows::Forms::TextBox());
 			this->search_info = (gcnew System::Windows::Forms::Label());
 			this->search_button = (gcnew System::Windows::Forms::Button());
 			this->search_reset = (gcnew System::Windows::Forms::Button());
@@ -110,6 +112,13 @@ namespace practicmain1 {
 			this->date_coincidence = (gcnew System::Windows::Forms::CheckBox());
 			this->search_back = (gcnew System::Windows::Forms::Button());
 			this->search_exit = (gcnew System::Windows::Forms::Button());
+			this->maskedTextBox_price = (gcnew System::Windows::Forms::MaskedTextBox());
+			this->maskedTextBox_date = (gcnew System::Windows::Forms::MaskedTextBox());
+			this->maskedTextBox_time = (gcnew System::Windows::Forms::MaskedTextBox());
+			this->maskedTextBox_number = (gcnew System::Windows::Forms::MaskedTextBox());
+			this->maskedTextBox_dest = (gcnew System::Windows::Forms::MaskedTextBox());
+			this->maskedTextBox_count = (gcnew System::Windows::Forms::MaskedTextBox());
+			this->wrong_data = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->main_table))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -121,9 +130,9 @@ namespace practicmain1 {
 				this->index, this->number,
 					this->destination, this->date, this->time, this->seats_count, this->price
 			});
-			this->main_table->Location = System::Drawing::Point(18, 389);
+			this->main_table->Location = System::Drawing::Point(18, 302);
 			this->main_table->Name = L"main_table";
-			this->main_table->Size = System::Drawing::Size(950, 232);
+			this->main_table->Size = System::Drawing::Size(950, 319);
 			this->main_table->TabIndex = 1;
 			// 
 			// index
@@ -190,7 +199,7 @@ namespace practicmain1 {
 			// check_date
 			// 
 			this->check_date->AutoSize = true;
-			this->check_date->Location = System::Drawing::Point(29, 207);
+			this->check_date->Location = System::Drawing::Point(29, 154);
 			this->check_date->Name = L"check_date";
 			this->check_date->Size = System::Drawing::Size(52, 17);
 			this->check_date->TabIndex = 2;
@@ -201,7 +210,7 @@ namespace practicmain1 {
 			// check_time
 			// 
 			this->check_time->AutoSize = true;
-			this->check_time->Location = System::Drawing::Point(388, 207);
+			this->check_time->Location = System::Drawing::Point(388, 154);
 			this->check_time->Name = L"check_time";
 			this->check_time->Size = System::Drawing::Size(59, 17);
 			this->check_time->TabIndex = 2;
@@ -222,55 +231,12 @@ namespace practicmain1 {
 			// check_seats_count
 			// 
 			this->check_seats_count->AutoSize = true;
-			this->check_seats_count->Location = System::Drawing::Point(738, 207);
+			this->check_seats_count->Location = System::Drawing::Point(738, 154);
 			this->check_seats_count->Name = L"check_seats_count";
 			this->check_seats_count->Size = System::Drawing::Size(88, 17);
 			this->check_seats_count->TabIndex = 2;
 			this->check_seats_count->Text = L"Кол-во мест";
 			this->check_seats_count->UseVisualStyleBackColor = true;
-			// 
-			// textBox1
-			// 
-			this->textBox1->Location = System::Drawing::Point(29, 93);
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(218, 20);
-			this->textBox1->TabIndex = 3;
-			// 
-			// textBox2
-			// 
-			this->textBox2->Location = System::Drawing::Point(388, 93);
-			this->textBox2->Name = L"textBox2";
-			this->textBox2->Size = System::Drawing::Size(219, 20);
-			this->textBox2->TabIndex = 3;
-			this->textBox2->TextChanged += gcnew System::EventHandler(this, &search::textBox2_TextChanged);
-			// 
-			// textBox3
-			// 
-			this->textBox3->Location = System::Drawing::Point(738, 93);
-			this->textBox3->Name = L"textBox3";
-			this->textBox3->Size = System::Drawing::Size(219, 20);
-			this->textBox3->TabIndex = 3;
-			// 
-			// textBox4
-			// 
-			this->textBox4->Location = System::Drawing::Point(29, 230);
-			this->textBox4->Name = L"textBox4";
-			this->textBox4->Size = System::Drawing::Size(218, 20);
-			this->textBox4->TabIndex = 3;
-			// 
-			// textBox5
-			// 
-			this->textBox5->Location = System::Drawing::Point(388, 230);
-			this->textBox5->Name = L"textBox5";
-			this->textBox5->Size = System::Drawing::Size(219, 20);
-			this->textBox5->TabIndex = 3;
-			// 
-			// textBox6
-			// 
-			this->textBox6->Location = System::Drawing::Point(738, 230);
-			this->textBox6->Name = L"textBox6";
-			this->textBox6->Size = System::Drawing::Size(219, 20);
-			this->textBox6->TabIndex = 3;
 			// 
 			// search_info
 			// 
@@ -286,7 +252,7 @@ namespace practicmain1 {
 			// 
 			// search_button
 			// 
-			this->search_button->Location = System::Drawing::Point(491, 342);
+			this->search_button->Location = System::Drawing::Point(491, 255);
 			this->search_button->Name = L"search_button";
 			this->search_button->Size = System::Drawing::Size(208, 41);
 			this->search_button->TabIndex = 5;
@@ -295,17 +261,18 @@ namespace practicmain1 {
 			// 
 			// search_reset
 			// 
-			this->search_reset->Location = System::Drawing::Point(259, 342);
+			this->search_reset->Location = System::Drawing::Point(277, 255);
 			this->search_reset->Name = L"search_reset";
 			this->search_reset->Size = System::Drawing::Size(208, 41);
 			this->search_reset->TabIndex = 5;
 			this->search_reset->Text = L"Сброс";
 			this->search_reset->UseVisualStyleBackColor = true;
+			this->search_reset->Click += gcnew System::EventHandler(this, &search::search_reset_Click);
 			// 
 			// time_later
 			// 
 			this->time_later->AutoSize = true;
-			this->time_later->Location = System::Drawing::Point(388, 273);
+			this->time_later->Location = System::Drawing::Point(388, 220);
 			this->time_later->Name = L"time_later";
 			this->time_later->Size = System::Drawing::Size(58, 17);
 			this->time_later->TabIndex = 2;
@@ -316,7 +283,7 @@ namespace practicmain1 {
 			// time_earlier
 			// 
 			this->time_earlier->AutoSize = true;
-			this->time_earlier->Location = System::Drawing::Point(543, 273);
+			this->time_earlier->Location = System::Drawing::Point(543, 220);
 			this->time_earlier->Name = L"time_earlier";
 			this->time_earlier->Size = System::Drawing::Size(64, 17);
 			this->time_earlier->TabIndex = 2;
@@ -327,7 +294,7 @@ namespace practicmain1 {
 			// time_coincidence
 			// 
 			this->time_coincidence->AutoSize = true;
-			this->time_coincidence->Location = System::Drawing::Point(451, 273);
+			this->time_coincidence->Location = System::Drawing::Point(451, 220);
 			this->time_coincidence->Name = L"time_coincidence";
 			this->time_coincidence->Size = System::Drawing::Size(86, 17);
 			this->time_coincidence->TabIndex = 2;
@@ -338,7 +305,7 @@ namespace practicmain1 {
 			// date_later
 			// 
 			this->date_later->AutoSize = true;
-			this->date_later->Location = System::Drawing::Point(29, 273);
+			this->date_later->Location = System::Drawing::Point(29, 220);
 			this->date_later->Name = L"date_later";
 			this->date_later->Size = System::Drawing::Size(58, 17);
 			this->date_later->TabIndex = 2;
@@ -349,7 +316,7 @@ namespace practicmain1 {
 			// date_earlier
 			// 
 			this->date_earlier->AutoSize = true;
-			this->date_earlier->Location = System::Drawing::Point(183, 273);
+			this->date_earlier->Location = System::Drawing::Point(183, 220);
 			this->date_earlier->Name = L"date_earlier";
 			this->date_earlier->Size = System::Drawing::Size(64, 17);
 			this->date_earlier->TabIndex = 2;
@@ -360,7 +327,7 @@ namespace practicmain1 {
 			// date_coincidence
 			// 
 			this->date_coincidence->AutoSize = true;
-			this->date_coincidence->Location = System::Drawing::Point(91, 273);
+			this->date_coincidence->Location = System::Drawing::Point(91, 220);
 			this->date_coincidence->Name = L"date_coincidence";
 			this->date_coincidence->Size = System::Drawing::Size(86, 17);
 			this->date_coincidence->TabIndex = 2;
@@ -388,23 +355,85 @@ namespace practicmain1 {
 			this->search_exit->UseVisualStyleBackColor = true;
 			this->search_exit->Click += gcnew System::EventHandler(this, &search::search_exit_Click);
 			// 
+			// maskedTextBox_price
+			// 
+			this->maskedTextBox_price->Location = System::Drawing::Point(29, 93);
+			this->maskedTextBox_price->Name = L"maskedTextBox_price";
+			this->maskedTextBox_price->Size = System::Drawing::Size(218, 20);
+			this->maskedTextBox_price->TabIndex = 6;
+			this->maskedTextBox_price->ValidatingType = System::Int32::typeid;
+			// 
+			// maskedTextBox_date
+			// 
+			this->maskedTextBox_date->Location = System::Drawing::Point(29, 177);
+			this->maskedTextBox_date->Mask = L"00/00/0000";
+			this->maskedTextBox_date->Name = L"maskedTextBox_date";
+			this->maskedTextBox_date->Size = System::Drawing::Size(218, 20);
+			this->maskedTextBox_date->TabIndex = 6;
+			this->maskedTextBox_date->ValidatingType = System::DateTime::typeid;
+			// 
+			// maskedTextBox_time
+			// 
+			this->maskedTextBox_time->Location = System::Drawing::Point(388, 177);
+			this->maskedTextBox_time->Mask = L"00:00";
+			this->maskedTextBox_time->Name = L"maskedTextBox_time";
+			this->maskedTextBox_time->Size = System::Drawing::Size(218, 20);
+			this->maskedTextBox_time->TabIndex = 6;
+			this->maskedTextBox_time->ValidatingType = System::DateTime::typeid;
+			// 
+			// maskedTextBox_number
+			// 
+			this->maskedTextBox_number->Location = System::Drawing::Point(389, 93);
+			this->maskedTextBox_number->Name = L"maskedTextBox_number";
+			this->maskedTextBox_number->Size = System::Drawing::Size(218, 20);
+			this->maskedTextBox_number->TabIndex = 6;
+			this->maskedTextBox_number->ValidatingType = System::Int32::typeid;
+			// 
+			// maskedTextBox_dest
+			// 
+			this->maskedTextBox_dest->Location = System::Drawing::Point(738, 93);
+			this->maskedTextBox_dest->Name = L"maskedTextBox_dest";
+			this->maskedTextBox_dest->Size = System::Drawing::Size(218, 20);
+			this->maskedTextBox_dest->TabIndex = 6;
+			// 
+			// maskedTextBox_count
+			// 
+			this->maskedTextBox_count->Location = System::Drawing::Point(738, 177);
+			this->maskedTextBox_count->Name = L"maskedTextBox_count";
+			this->maskedTextBox_count->Size = System::Drawing::Size(218, 20);
+			this->maskedTextBox_count->TabIndex = 6;
+			// 
+			// wrong_data
+			// 
+			this->wrong_data->AutoSize = true;
+			this->wrong_data->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->wrong_data->ForeColor = System::Drawing::Color::Maroon;
+			this->wrong_data->Location = System::Drawing::Point(720, 260);
+			this->wrong_data->Name = L"wrong_data";
+			this->wrong_data->Size = System::Drawing::Size(248, 25);
+			this->wrong_data->TabIndex = 7;
+			this->wrong_data->Text = L"Неверно введены данные";
+			this->wrong_data->Visible = false;
+			// 
 			// search
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::Silver;
 			this->ClientSize = System::Drawing::Size(980, 633);
+			this->Controls->Add(this->wrong_data);
+			this->Controls->Add(this->maskedTextBox_count);
+			this->Controls->Add(this->maskedTextBox_dest);
+			this->Controls->Add(this->maskedTextBox_number);
+			this->Controls->Add(this->maskedTextBox_time);
+			this->Controls->Add(this->maskedTextBox_date);
+			this->Controls->Add(this->maskedTextBox_price);
 			this->Controls->Add(this->search_reset);
 			this->Controls->Add(this->search_exit);
 			this->Controls->Add(this->search_back);
 			this->Controls->Add(this->search_button);
 			this->Controls->Add(this->search_info);
-			this->Controls->Add(this->textBox3);
-			this->Controls->Add(this->textBox6);
-			this->Controls->Add(this->textBox5);
-			this->Controls->Add(this->textBox4);
-			this->Controls->Add(this->textBox2);
-			this->Controls->Add(this->textBox1);
 			this->Controls->Add(this->check_date);
 			this->Controls->Add(this->check_number);
 			this->Controls->Add(this->check_seats_count);
@@ -462,6 +491,10 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 }
 private: System::Void search_exit_Click(System::Object^ sender, System::EventArgs^ e) {
 	this->Close();
+}
+private: System::Void search_reset_Click(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 }
 };
 }
