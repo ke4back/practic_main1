@@ -151,8 +151,9 @@ namespace practicmain1 {
 	}
 
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
-		table^ Table = gcnew table();
-		Table->Show();	
+		this->Hide();
+		table^ Table = gcnew table(this);
+		Table->ShowDialog();	
 	}
 
 	private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {

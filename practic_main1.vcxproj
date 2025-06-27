@@ -81,6 +81,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies />
+      <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -135,6 +136,7 @@
     <ClInclude Include="main.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Routes.h" />
     <ClInclude Include="search.h">
       <FileType>CppForm</FileType>
     </ClInclude>

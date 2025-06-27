@@ -18,12 +18,18 @@ namespace practicmain1 {
 	public ref class table : public System::Windows::Forms::Form
 	{
 	public:
+		Form^ obj;
 		table(void)
 		{
 			InitializeComponent();
 			LoadRoutesData();
 		}
 
+		table(Form^ obj1)
+		{
+			obj = obj1;
+			InitializeComponent();
+		}
 	protected:
 		/// <summary>
 		/// Clean up any resources being used.
@@ -160,6 +166,10 @@ namespace practicmain1 {
 			// main_table
 			// 
 			this->main_table->AccessibleRole = System::Windows::Forms::AccessibleRole::None;
+			this->main_table->AllowUserToAddRows = false;
+			this->main_table->AllowUserToDeleteRows = false;
+			this->main_table->AllowUserToResizeColumns = false;
+			this->main_table->AllowUserToResizeRows = false;
 			this->main_table->ColumnHeadersHeight = 50;
 			this->main_table->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(7) {
 				this->index, this->number,
@@ -167,6 +177,7 @@ namespace practicmain1 {
 			});
 			this->main_table->Location = System::Drawing::Point(18, 58);
 			this->main_table->Name = L"main_table";
+			this->main_table->ReadOnly = true;
 			this->main_table->Size = System::Drawing::Size(950, 526);
 			this->main_table->TabIndex = 3;
 			// 
@@ -234,7 +245,9 @@ namespace practicmain1 {
 	private: System::Void dataGridView1_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
 	}
 	private: System::Void table_exit_button_Click(System::Object^ sender, System::EventArgs^ e) {
-		this->Close();
+		this->Hide();
+		obj->Show();
+
 	}
 private: System::Void search_routes_button_Click(System::Object^ sender, System::EventArgs^ e) {
 	search^ Search = gcnew search();
