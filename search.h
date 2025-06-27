@@ -704,7 +704,7 @@ namespace practicmain1 {
 
 		System::Void search_back_Click(System::Object^ sender, System::EventArgs^ e)
 		{
-            this->Close();
+            this->Hide();
             obj->Show();
 		}
 

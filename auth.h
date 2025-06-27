@@ -16,6 +16,7 @@ namespace practicmain1 {
 	public ref class auth : public System::Windows::Forms::Form
 	{
 	public:
+		Form^ obj;
 		auth(void)
 		{
 			InitializeComponent();
@@ -23,7 +24,11 @@ namespace practicmain1 {
 			//TODO: Add the constructor code here
 			//
 		}
-
+		auth(Form^ obj4)
+		{
+			obj = obj4;
+			InitializeComponent();
+		}
 	protected:
 		/// <summary>
 		/// Clean up any resources being used.
@@ -39,10 +44,16 @@ namespace practicmain1 {
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::Button^ admin_exit_button;
-	private: System::Windows::Forms::TextBox^ textBox1;
+	private: System::Windows::Forms::TextBox^ login_textBox;
+
+
+
 	private: System::Windows::Forms::TextBox^ textBox2;
-	private: System::Windows::Forms::Button^ button1;
+	private: System::Windows::Forms::Button^ login_button;
+
+
 	private: System::Windows::Forms::Label^ wrong_password;
+	private: System::Windows::Forms::CheckBox^ Show_pass_checkBox;
 
 	protected:
 
@@ -63,10 +74,11 @@ namespace practicmain1 {
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->admin_exit_button = (gcnew System::Windows::Forms::Button());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->login_textBox = (gcnew System::Windows::Forms::TextBox());
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
-			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->login_button = (gcnew System::Windows::Forms::Button());
 			this->wrong_password = (gcnew System::Windows::Forms::Label());
+			this->Show_pass_checkBox = (gcnew System::Windows::Forms::CheckBox());
 			this->SuspendLayout();
 			// 
 			// message_auth
@@ -76,7 +88,7 @@ namespace practicmain1 {
 				static_cast<System::Byte>(204)));
 			this->message_auth->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)),
 				static_cast<System::Int32>(static_cast<System::Byte>(32)));
-			this->message_auth->Location = System::Drawing::Point(36, 29);
+			this->message_auth->Location = System::Drawing::Point(36, 18);
 			this->message_auth->Name = L"message_auth";
 			this->message_auth->Size = System::Drawing::Size(570, 117);
 			this->message_auth->TabIndex = 0;
@@ -87,13 +99,13 @@ namespace practicmain1 {
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->label1->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)),
 				static_cast<System::Int32>(static_cast<System::Byte>(32)));
-			this->label1->Location = System::Drawing::Point(97, 158);
+			this->label1->Location = System::Drawing::Point(101, 135);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(88, 31);
+			this->label1->Size = System::Drawing::Size(93, 31);
 			this->label1->TabIndex = 1;
 			this->label1->Text = L"Логин";
 			this->label1->Click += gcnew System::EventHandler(this, &auth::label1_Click);
@@ -101,13 +113,13 @@ namespace practicmain1 {
 			// label2
 			// 
 			this->label2->AutoSize = true;
-			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->label2->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)),
 				static_cast<System::Int32>(static_cast<System::Byte>(32)));
-			this->label2->Location = System::Drawing::Point(97, 245);
+			this->label2->Location = System::Drawing::Point(101, 227);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(108, 31);
+			this->label2->Size = System::Drawing::Size(114, 31);
 			this->label2->TabIndex = 1;
 			this->label2->Text = L"Пароль";
 			this->label2->Click += gcnew System::EventHandler(this, &auth::label2_Click);
@@ -119,46 +131,49 @@ namespace practicmain1 {
 				static_cast<System::Byte>(204)));
 			this->admin_exit_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)),
 				static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)));
-			this->admin_exit_button->Location = System::Drawing::Point(97, 351);
+			this->admin_exit_button->Location = System::Drawing::Point(97, 370);
 			this->admin_exit_button->Name = L"admin_exit_button";
 			this->admin_exit_button->Size = System::Drawing::Size(147, 67);
 			this->admin_exit_button->TabIndex = 2;
 			this->admin_exit_button->Text = L"назад";
 			this->admin_exit_button->UseVisualStyleBackColor = false;
-			this->admin_exit_button->Click += gcnew System::EventHandler(this, &auth::button1_Click);
+			this->admin_exit_button->Click += gcnew System::EventHandler(this, &auth::admin_exit_button_Click);
 			// 
-			// textBox1
+			// login_textBox
 			// 
-			this->textBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->login_textBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox1->Location = System::Drawing::Point(97, 192);
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(438, 38);
-			this->textBox1->TabIndex = 3;
+			this->login_textBox->Location = System::Drawing::Point(101, 169);
+			this->login_textBox->Name = L"login_textBox";
+			this->login_textBox->ReadOnly = true;
+			this->login_textBox->Size = System::Drawing::Size(438, 38);
+			this->login_textBox->TabIndex = 3;
+			this->login_textBox->Text = L"admin";
 			// 
 			// textBox2
 			// 
 			this->textBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox2->Location = System::Drawing::Point(97, 279);
+			this->textBox2->Location = System::Drawing::Point(101, 261);
 			this->textBox2->Name = L"textBox2";
 			this->textBox2->Size = System::Drawing::Size(438, 38);
 			this->textBox2->TabIndex = 3;
+			this->textBox2->UseSystemPasswordChar = true;
+			this->textBox2->TextChanged += gcnew System::EventHandler(this, &auth::textBox2_TextChanged);
 			// 
-			// button1
+			// login_button
 			// 
-			this->button1->BackColor = System::Drawing::Color::LightGray;
-			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 25, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->login_button->BackColor = System::Drawing::Color::LightGray;
+			this->login_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 25, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->button1->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)),
+			this->login_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)),
 				static_cast<System::Int32>(static_cast<System::Byte>(32)));
-			this->button1->Location = System::Drawing::Point(276, 351);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(259, 67);
-			this->button1->TabIndex = 2;
-			this->button1->Text = L"вход";
-			this->button1->UseVisualStyleBackColor = false;
-			this->button1->Click += gcnew System::EventHandler(this, &auth::button1_Click);
+			this->login_button->Location = System::Drawing::Point(276, 370);
+			this->login_button->Name = L"login_button";
+			this->login_button->Size = System::Drawing::Size(259, 67);
+			this->login_button->TabIndex = 2;
+			this->login_button->Text = L"вход";
+			this->login_button->UseVisualStyleBackColor = false;
 			// 
 			// wrong_password
 			// 
@@ -166,11 +181,25 @@ namespace practicmain1 {
 			this->wrong_password->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->wrong_password->ForeColor = System::Drawing::Color::DarkRed;
-			this->wrong_password->Location = System::Drawing::Point(264, 164);
+			this->wrong_password->Location = System::Drawing::Point(268, 141);
 			this->wrong_password->Name = L"wrong_password";
 			this->wrong_password->Size = System::Drawing::Size(271, 25);
 			this->wrong_password->TabIndex = 4;
 			this->wrong_password->Text = L"Неверный логин или пароль";
+			this->wrong_password->Visible = false;
+			// 
+			// Show_pass_checkBox
+			// 
+			this->Show_pass_checkBox->AutoSize = true;
+			this->Show_pass_checkBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->Show_pass_checkBox->Location = System::Drawing::Point(101, 315);
+			this->Show_pass_checkBox->Name = L"Show_pass_checkBox";
+			this->Show_pass_checkBox->Size = System::Drawing::Size(189, 29);
+			this->Show_pass_checkBox->TabIndex = 5;
+			this->Show_pass_checkBox->Text = L"Показать пароль";
+			this->Show_pass_checkBox->UseVisualStyleBackColor = true;
+			this->Show_pass_checkBox->CheckedChanged += gcnew System::EventHandler(this, &auth::Show_pass_checkBox_CheckedChanged);
 			// 
 			// auth
 			// 
@@ -179,10 +208,11 @@ namespace practicmain1 {
 			this->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
 			this->BackColor = System::Drawing::Color::Silver;
 			this->ClientSize = System::Drawing::Size(634, 461);
+			this->Controls->Add(this->Show_pass_checkBox);
 			this->Controls->Add(this->wrong_password);
 			this->Controls->Add(this->textBox2);
-			this->Controls->Add(this->textBox1);
-			this->Controls->Add(this->button1);
+			this->Controls->Add(this->login_textBox);
+			this->Controls->Add(this->login_button);
 			this->Controls->Add(this->admin_exit_button);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label1);
@@ -191,6 +221,7 @@ namespace practicmain1 {
 			this->RightToLeft = System::Windows::Forms::RightToLeft::No;
 			this->Text = L"Авторизация";
 			this->TopMost = true;
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &auth::auth_FormClosing);
 			this->Load += gcnew System::EventHandler(this, &auth::auth_Load);
 			this->ResumeLayout(false);
 			this->PerformLayout();
@@ -199,13 +230,25 @@ namespace practicmain1 {
 #pragma endregion
 	private: System::Void auth_Load(System::Object^ sender, System::EventArgs^ e) {
 	}
-	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-	}
 private: System::Void label2_Click(System::Object^ sender, System::EventArgs^ e) {
 }
 private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
 }
 private: System::Void message_auth_Click(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void admin_exit_button_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->Hide();
+	obj->Show();
+}
+private: System::Void Show_pass_checkBox_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+	textBox2->UseSystemPasswordChar = !textBox2->UseSystemPasswordChar;
+}
+private: System::Void textBox2_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void auth_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+	if (e->CloseReason == CloseReason::UserClosing) {
+		Application::Exit();
+	}
 }
 };
 }
