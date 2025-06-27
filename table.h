@@ -185,41 +185,48 @@ namespace practicmain1 {
 			// 
 			this->index->HeaderText = L"Индекс";
 			this->index->Name = L"index";
+			this->index->ReadOnly = true;
 			this->index->Width = 55;
 			// 
 			// number
 			// 
 			this->number->HeaderText = L"Номер рейса";
 			this->number->Name = L"number";
+			this->number->ReadOnly = true;
 			// 
 			// destination
 			// 
 			this->destination->HeaderText = L"Пункт назначения";
 			this->destination->Name = L"destination";
+			this->destination->ReadOnly = true;
 			this->destination->Width = 200;
 			// 
 			// date
 			// 
 			this->date->HeaderText = L"Дата";
 			this->date->Name = L"date";
+			this->date->ReadOnly = true;
 			this->date->Width = 150;
 			// 
 			// time
 			// 
 			this->time->HeaderText = L"Время(чч:мм)";
 			this->time->Name = L"time";
+			this->time->ReadOnly = true;
 			this->time->Width = 150;
 			// 
 			// seats_count
 			// 
 			this->seats_count->HeaderText = L"кол-во мест";
 			this->seats_count->Name = L"seats_count";
+			this->seats_count->ReadOnly = true;
 			this->seats_count->Width = 150;
 			// 
 			// price
 			// 
 			this->price->HeaderText = L"цена";
 			this->price->Name = L"price";
+			this->price->ReadOnly = true;
 			// 
 			// table
 			// 
@@ -235,6 +242,7 @@ namespace practicmain1 {
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->Name = L"table";
 			this->Text = L"table";
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &table::table_FormClosing);
 			this->Load += gcnew System::EventHandler(this, &table::table_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->main_table))->EndInit();
 			this->ResumeLayout(false);
@@ -250,12 +258,17 @@ namespace practicmain1 {
 
 	}
 private: System::Void search_routes_button_Click(System::Object^ sender, System::EventArgs^ e) {
-	search^ Search = gcnew search();
+	search^ Search = gcnew search(this);
 	Search->Show();
 	this->Hide();	
 }
 private: System::Void table_Load(System::Object^ sender, System::EventArgs^ e) {
 	LoadRoutesData();
+}
+private: System::Void table_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+	if (e->CloseReason == CloseReason::UserClosing) {
+		Application::Exit();
+	}
 }
 };
 }

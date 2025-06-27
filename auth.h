@@ -123,7 +123,7 @@ namespace practicmain1 {
 			this->admin_exit_button->Name = L"admin_exit_button";
 			this->admin_exit_button->Size = System::Drawing::Size(147, 67);
 			this->admin_exit_button->TabIndex = 2;
-			this->admin_exit_button->Text = L"выход";
+			this->admin_exit_button->Text = L"назад";
 			this->admin_exit_button->UseVisualStyleBackColor = false;
 			this->admin_exit_button->Click += gcnew System::EventHandler(this, &auth::button1_Click);
 			// 

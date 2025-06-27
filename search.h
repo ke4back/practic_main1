@@ -1,6 +1,7 @@
 #pragma once
 #include "Routes.h"
 
+
 namespace practicmain1 {
 
 	using namespace System;
@@ -20,6 +21,7 @@ namespace practicmain1 {
 	public ref class search : public System::Windows::Forms::Form
     {
     public:
+        Form^ obj;      
         search(void)
         {
             InitializeComponent();
@@ -28,6 +30,11 @@ namespace practicmain1 {
             
             maskedTextBox_date->Mask = "00/00/0000";
             maskedTextBox_time->Mask = "00:00";
+        }
+        search(Form^ obj2)
+        {
+            obj = obj2;
+            InitializeComponent();
         }
 
     protected:
@@ -322,6 +329,7 @@ namespace practicmain1 {
             });
             this->main_table->Location = System::Drawing::Point(18, 302);
             this->main_table->Name = L"main_table";
+            this->main_table->ReadOnly = true;
             this->main_table->Size = System::Drawing::Size(950, 319);
             this->main_table->TabIndex = 1;
             // 
@@ -329,41 +337,48 @@ namespace practicmain1 {
             // 
             this->index->HeaderText = L"Индекс";
             this->index->Name = L"index";
+            this->index->ReadOnly = true;
             this->index->Width = 50;
             // 
             // number
             // 
             this->number->HeaderText = L"Номер рейса";
             this->number->Name = L"number";
+            this->number->ReadOnly = true;
             // 
             // destination
             // 
             this->destination->HeaderText = L"Пункт назначения";
             this->destination->Name = L"destination";
+            this->destination->ReadOnly = true;
             this->destination->Width = 200;
             // 
             // date
             // 
             this->date->HeaderText = L"Дата";
             this->date->Name = L"date";
+            this->date->ReadOnly = true;
             this->date->Width = 150;
             // 
             // time
             // 
             this->time->HeaderText = L"Время(чч:мм)";
             this->time->Name = L"time";
+            this->time->ReadOnly = true;
             this->time->Width = 150;
             // 
             // seats_count
             // 
             this->seats_count->HeaderText = L"кол-во мест";
             this->seats_count->Name = L"seats_count";
+            this->seats_count->ReadOnly = true;
             this->seats_count->Width = 150;
             // 
             // price
             // 
             this->price->HeaderText = L"цена";
             this->price->Name = L"price";
+            this->price->ReadOnly = true;
             this->price->Width = 150;
             // 
             // check_price
@@ -637,8 +652,11 @@ namespace practicmain1 {
             this->Controls->Add(this->time_later);
             this->Controls->Add(this->check_price);
             this->Controls->Add(this->main_table);
+            this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
             this->Name = L"search";
             this->Text = L"search";
+            this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &search::search_FormClosing);
+            this->Load += gcnew System::EventHandler(this, &search::search_Load);
             (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->main_table))->EndInit();
             this->ResumeLayout(false);
             this->PerformLayout();
@@ -686,7 +704,8 @@ namespace practicmain1 {
 
 		System::Void search_back_Click(System::Object^ sender, System::EventArgs^ e)
 		{
-			this->Close();
+            this->Close();
+            obj->Show();
 		}
 
 		System::Void search_exit_Click(System::Object^ sender, System::EventArgs^ e)
@@ -707,5 +726,12 @@ namespace practicmain1 {
 			time_coincidence->Visible = check_time->Checked;
 			time_earlier->Visible = check_time->Checked;
 		}
-	};
+    private: System::Void search_Load(System::Object^ sender, System::EventArgs^ e) {
+    }
+private: System::Void search_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+    if (e->CloseReason == CloseReason::UserClosing) {
+        Application::Exit();
+    }
+}
+};
 }
