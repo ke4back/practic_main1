@@ -1,5 +1,5 @@
 #pragma once
-
+#include "table_admin1.h"
 
 namespace practicmain1 {
 
@@ -9,6 +9,7 @@ namespace practicmain1 {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::IO;
 
 	/// <summary>
 	/// Summary for auth
@@ -174,6 +175,7 @@ namespace practicmain1 {
 			this->login_button->TabIndex = 2;
 			this->login_button->Text = L"вход";
 			this->login_button->UseVisualStyleBackColor = false;
+			this->login_button->Click += gcnew System::EventHandler(this, &auth::login_button_Click);
 			// 
 			// wrong_password
 			// 
@@ -249,6 +251,35 @@ private: System::Void auth_FormClosing(System::Object^ sender, System::Windows::
 	if (e->CloseReason == CloseReason::UserClosing) {
 		Application::Exit();
 	}
+}
+private: System::Void login_button_Click(System::Object^ sender, System::EventArgs^ e) {
+	{
+		try
+		{
+			String^ correctPassword = File::ReadAllText("password.txt")->Trim();
+
+			if (textBox2->Text == correctPassword)
+			{
+				wrong_password->Visible = false;
+
+				table_admin1^ adminForm = gcnew table_admin1(this);
+				this->Hide();
+				adminForm->Show();
+			}
+			else
+			{
+				wrong_password->Visible = true;
+			}
+		}
+		catch (Exception^ ex)
+		{
+			MessageBox::Show("Ошибка при проверке пароля: " + ex->Message,
+				"Ошибка",
+				MessageBoxButtons::OK,
+				MessageBoxIcon::Error);
+		}
+	}
+
 }
 };
 }

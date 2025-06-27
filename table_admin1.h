@@ -15,6 +15,7 @@ namespace practicmain1 {
 	public ref class table_admin1 : public System::Windows::Forms::Form
 	{
 	public:
+		Form^ obj;
 		table_admin1(void)
 		{
 			InitializeComponent();
@@ -22,7 +23,11 @@ namespace practicmain1 {
 			//TODO: Add the constructor code here
 			//
 		}
-
+		table_admin1(Form^ obj2)
+		{
+			obj = obj2;
+			InitializeComponent();
+		}
 	protected:
 		/// <summary>
 		/// Clean up any resources being used.
@@ -218,6 +223,7 @@ namespace practicmain1 {
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->Name = L"table_admin1";
 			this->Text = L"table_admin";
+			this->Load += gcnew System::EventHandler(this, &table_admin1::table_admin1_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->main_table))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
@@ -226,5 +232,7 @@ namespace practicmain1 {
 #pragma endregion
 	private: System::Void hui_Click(System::Object^ sender, System::EventArgs^ e) {
 	}
-	};
+	private: System::Void table_admin1_Load(System::Object^ sender, System::EventArgs^ e) {
+	}
+};
 }
