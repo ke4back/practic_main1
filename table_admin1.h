@@ -1,4 +1,6 @@
 #pragma once
+#include "Routes.h"
+#include "search.h"
 
 namespace practicmain1 {
 
@@ -55,6 +57,7 @@ namespace practicmain1 {
 	private: System::Windows::Forms::Button^ delete_route_button;
 	private: System::Windows::Forms::Button^ new_route_button;
 	private: System::Windows::Forms::Label^ table_name;
+	private: System::Windows::Forms::Button^ back_button;
 
 
 	private:
@@ -84,6 +87,7 @@ namespace practicmain1 {
 			this->delete_route_button = (gcnew System::Windows::Forms::Button());
 			this->new_route_button = (gcnew System::Windows::Forms::Button());
 			this->table_name = (gcnew System::Windows::Forms::Label());
+			this->back_button = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->main_table))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -145,12 +149,13 @@ namespace practicmain1 {
 			// 
 			this->table_exit_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->table_exit_button->Location = System::Drawing::Point(820, 585);
+			this->table_exit_button->Location = System::Drawing::Point(819, 585);
 			this->table_exit_button->Name = L"table_exit_button";
 			this->table_exit_button->Size = System::Drawing::Size(150, 50);
 			this->table_exit_button->TabIndex = 5;
 			this->table_exit_button->Text = L"выход";
 			this->table_exit_button->UseVisualStyleBackColor = true;
+			this->table_exit_button->Click += gcnew System::EventHandler(this, &table_admin1::table_exit_button_Click);
 			// 
 			// search_routes_button
 			// 
@@ -162,6 +167,7 @@ namespace practicmain1 {
 			this->search_routes_button->TabIndex = 6;
 			this->search_routes_button->Text = L"поиск рейсов";
 			this->search_routes_button->UseVisualStyleBackColor = true;
+			this->search_routes_button->Click += gcnew System::EventHandler(this, &table_admin1::search_routes_button_Click);
 			// 
 			// button3
 			// 
@@ -207,6 +213,18 @@ namespace practicmain1 {
 			this->table_name->TabIndex = 4;
 			this->table_name->Text = L"¬се данные из базы данных";
 			// 
+			// back_button
+			// 
+			this->back_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->back_button->Location = System::Drawing::Point(663, 585);
+			this->back_button->Name = L"back_button";
+			this->back_button->Size = System::Drawing::Size(150, 50);
+			this->back_button->TabIndex = 5;
+			this->back_button->Text = L"назад";
+			this->back_button->UseVisualStyleBackColor = true;
+			this->back_button->Click += gcnew System::EventHandler(this, &table_admin1::back_button_Click);
+			// 
 			// table_admin1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -214,6 +232,7 @@ namespace practicmain1 {
 			this->BackColor = System::Drawing::Color::Silver;
 			this->ClientSize = System::Drawing::Size(984, 661);
 			this->Controls->Add(this->main_table);
+			this->Controls->Add(this->back_button);
 			this->Controls->Add(this->table_exit_button);
 			this->Controls->Add(this->search_routes_button);
 			this->Controls->Add(this->button3);
@@ -223,6 +242,7 @@ namespace practicmain1 {
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->Name = L"table_admin1";
 			this->Text = L"table_admin";
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &table_admin1::table_admin1_FormClosing);
 			this->Load += gcnew System::EventHandler(this, &table_admin1::table_admin1_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->main_table))->EndInit();
 			this->ResumeLayout(false);
@@ -234,5 +254,19 @@ namespace practicmain1 {
 	}
 	private: System::Void table_admin1_Load(System::Object^ sender, System::EventArgs^ e) {
 	}
+private: System::Void table_exit_button_Click(System::Object^ sender, System::EventArgs^ e) {
+	Application::Exit();
+}
+private: System::Void back_button_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->Hide();
+	obj->Show();
+}
+private: System::Void table_admin1_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+	if (e->CloseReason == CloseReason::UserClosing) {
+		Application::Exit();
+	}
+}
+private: System::Void search_routes_button_Click(System::Object^ sender, System::EventArgs^ e) {
+}
 };
 }

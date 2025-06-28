@@ -35,6 +35,10 @@ namespace practicmain1 {
         {
             obj = obj2;
             InitializeComponent();
+            allRoutes = gcnew List<Route^>();
+            filteredRoutes = gcnew List<Route^>();
+            LoadRoutesFromFile();
+            UpdateDataGridView();
         }
 
     protected:
@@ -54,11 +58,12 @@ namespace practicmain1 {
         {
             allRoutes = gcnew List<Route^>();
             filteredRoutes = gcnew List<Route^>();
-
             try
             {
                 StreamReader^ reader = gcnew StreamReader("routes.txt", System::Text::Encoding::GetEncoding(1251));
                 
+                int index = 1;
+
                 while (!reader->EndOfStream)
                 {
                     String^ line = reader->ReadLine();
@@ -67,6 +72,7 @@ namespace practicmain1 {
                     if (parts->Length >= 6)
                     {
                         Route^ route = gcnew Route();
+                        route->Index = index;
                         route->Number = Int32::Parse(parts[0]);
                         route->Destination = parts[1];
                         route->Date = parts[2];
@@ -77,6 +83,7 @@ namespace practicmain1 {
                         allRoutes->Add(route);
                         filteredRoutes->Add(route);
                     }
+                    index++;
                 }
                 reader->Close();
             }
@@ -97,7 +104,7 @@ namespace practicmain1 {
             {
                 Route^ route = filteredRoutes[i];
                 main_table->Rows->Add(
-                    i + 1,
+                    route->Index,
                     route->Number,
                     route->Destination,
                     route->Date,

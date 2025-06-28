@@ -4,6 +4,7 @@ using namespace System;
 
 public ref class Route {
 public:
+    property int Index;
     property int Number;
     property String^ Destination;
     property String^ Date;
