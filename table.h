@@ -77,7 +77,6 @@ namespace practicmain1 {
 		{
 			try
 			{
-				// Очищаем таблицу перед загрузкой новых данных
 				main_table->Rows->Clear();
 
 				StreamReader^ reader = gcnew StreamReader("routes.txt", System::Text::Encoding::GetEncoding(1251));
@@ -91,13 +90,13 @@ namespace practicmain1 {
 					if (parts->Length >= 6)
 					{
 						main_table->Rows->Add(
-							index++,                  // Индекс
-							parts[0],                // Номер рейса
-							parts[1],                // Пункт назначения
-							parts[2],                // Дата
-							parts[3],                // Время
-							parts[4],                // Количество мест
-							parts[5]                // Цена
+							index++,
+							parts[0],
+							parts[1],
+							parts[2],
+							parts[3],
+							parts[4],
+							parts[5]
 						);
 					}
 				}

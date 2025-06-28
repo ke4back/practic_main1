@@ -52,7 +52,14 @@ namespace practicmain1 {
 
     private:
         List<Route^>^ allRoutes;
-        List<Route^>^ filteredRoutes;
+    private: System::Windows::Forms::DataGridViewTextBoxColumn^ index;
+    private: System::Windows::Forms::DataGridViewTextBoxColumn^ number;
+    private: System::Windows::Forms::DataGridViewTextBoxColumn^ destination;
+    private: System::Windows::Forms::DataGridViewTextBoxColumn^ date;
+    private: System::Windows::Forms::DataGridViewTextBoxColumn^ time;
+    private: System::Windows::Forms::DataGridViewTextBoxColumn^ seats_count;
+    private: System::Windows::Forms::DataGridViewTextBoxColumn^ price;
+           List<Route^>^ filteredRoutes;
 
         void LoadRoutesFromFile()
         {
@@ -252,13 +259,13 @@ namespace practicmain1 {
         System::Windows::Forms::CheckBox^ check_time;
         System::Windows::Forms::CheckBox^ check_destination;
         System::Windows::Forms::CheckBox^ check_seats_count;
-        System::Windows::Forms::DataGridViewTextBoxColumn^ index;
-        System::Windows::Forms::DataGridViewTextBoxColumn^ number;
-        System::Windows::Forms::DataGridViewTextBoxColumn^ destination;
-        System::Windows::Forms::DataGridViewTextBoxColumn^ date;
-        System::Windows::Forms::DataGridViewTextBoxColumn^ time;
-        System::Windows::Forms::DataGridViewTextBoxColumn^ seats_count;
-        System::Windows::Forms::DataGridViewTextBoxColumn^ price;
+
+
+
+
+
+
+
         System::Windows::Forms::Label^ search_info;
         System::Windows::Forms::Button^ search_button;
         System::Windows::Forms::Button^ search_reset;
@@ -288,13 +295,6 @@ namespace practicmain1 {
 		void InitializeComponent(void)
 		{
             this->main_table = (gcnew System::Windows::Forms::DataGridView());
-            this->index = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-            this->number = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-            this->destination = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-            this->date = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-            this->time = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-            this->seats_count = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-            this->price = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
             this->check_price = (gcnew System::Windows::Forms::CheckBox());
             this->check_number = (gcnew System::Windows::Forms::CheckBox());
             this->check_date = (gcnew System::Windows::Forms::CheckBox());
@@ -319,6 +319,13 @@ namespace practicmain1 {
             this->maskedTextBox_dest = (gcnew System::Windows::Forms::MaskedTextBox());
             this->maskedTextBox_count = (gcnew System::Windows::Forms::MaskedTextBox());
             this->wrong_data = (gcnew System::Windows::Forms::Label());
+            this->index = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+            this->number = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+            this->destination = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+            this->date = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+            this->time = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+            this->seats_count = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+            this->price = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
             (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->main_table))->BeginInit();
             this->SuspendLayout();
             // 
@@ -339,54 +346,6 @@ namespace practicmain1 {
             this->main_table->ReadOnly = true;
             this->main_table->Size = System::Drawing::Size(950, 319);
             this->main_table->TabIndex = 1;
-            // 
-            // index
-            // 
-            this->index->HeaderText = L"Индекс";
-            this->index->Name = L"index";
-            this->index->ReadOnly = true;
-            this->index->Width = 50;
-            // 
-            // number
-            // 
-            this->number->HeaderText = L"Номер рейса";
-            this->number->Name = L"number";
-            this->number->ReadOnly = true;
-            // 
-            // destination
-            // 
-            this->destination->HeaderText = L"Пункт назначения";
-            this->destination->Name = L"destination";
-            this->destination->ReadOnly = true;
-            this->destination->Width = 200;
-            // 
-            // date
-            // 
-            this->date->HeaderText = L"Дата";
-            this->date->Name = L"date";
-            this->date->ReadOnly = true;
-            this->date->Width = 150;
-            // 
-            // time
-            // 
-            this->time->HeaderText = L"Время(чч:мм)";
-            this->time->Name = L"time";
-            this->time->ReadOnly = true;
-            this->time->Width = 150;
-            // 
-            // seats_count
-            // 
-            this->seats_count->HeaderText = L"кол-во мест";
-            this->seats_count->Name = L"seats_count";
-            this->seats_count->ReadOnly = true;
-            this->seats_count->Width = 150;
-            // 
-            // price
-            // 
-            this->price->HeaderText = L"цена";
-            this->price->Name = L"price";
-            this->price->ReadOnly = true;
-            this->price->Width = 150;
             // 
             // check_price
             // 
@@ -570,6 +529,7 @@ namespace practicmain1 {
             // maskedTextBox_price
             // 
             this->maskedTextBox_price->Location = System::Drawing::Point(29, 93);
+            this->maskedTextBox_price->Mask = L"000000";
             this->maskedTextBox_price->Name = L"maskedTextBox_price";
             this->maskedTextBox_price->Size = System::Drawing::Size(218, 20);
             this->maskedTextBox_price->TabIndex = 6;
@@ -596,6 +556,7 @@ namespace practicmain1 {
             // maskedTextBox_number
             // 
             this->maskedTextBox_number->Location = System::Drawing::Point(389, 93);
+            this->maskedTextBox_number->Mask = L"00000";
             this->maskedTextBox_number->Name = L"maskedTextBox_number";
             this->maskedTextBox_number->Size = System::Drawing::Size(218, 20);
             this->maskedTextBox_number->TabIndex = 6;
@@ -611,9 +572,11 @@ namespace practicmain1 {
             // maskedTextBox_count
             // 
             this->maskedTextBox_count->Location = System::Drawing::Point(738, 177);
+            this->maskedTextBox_count->Mask = L"000";
             this->maskedTextBox_count->Name = L"maskedTextBox_count";
             this->maskedTextBox_count->Size = System::Drawing::Size(218, 20);
             this->maskedTextBox_count->TabIndex = 6;
+            this->maskedTextBox_count->ValidatingType = System::Int32::typeid;
             // 
             // wrong_data
             // 
@@ -627,6 +590,53 @@ namespace practicmain1 {
             this->wrong_data->TabIndex = 7;
             this->wrong_data->Text = L"Неверно введены данные";
             this->wrong_data->Visible = false;
+            // 
+            // index
+            // 
+            this->index->HeaderText = L"Индекс";
+            this->index->Name = L"index";
+            this->index->ReadOnly = true;
+            this->index->Width = 50;
+            // 
+            // number
+            // 
+            this->number->HeaderText = L"Номер рейса";
+            this->number->Name = L"number";
+            this->number->ReadOnly = true;
+            // 
+            // destination
+            // 
+            this->destination->HeaderText = L"Пункт назначения";
+            this->destination->Name = L"destination";
+            this->destination->ReadOnly = true;
+            this->destination->Width = 200;
+            // 
+            // date
+            // 
+            this->date->HeaderText = L"Дата";
+            this->date->Name = L"date";
+            this->date->ReadOnly = true;
+            this->date->Width = 150;
+            // 
+            // time
+            // 
+            this->time->HeaderText = L"Время(чч:мм)";
+            this->time->Name = L"time";
+            this->time->ReadOnly = true;
+            this->time->Width = 150;
+            // 
+            // seats_count
+            // 
+            this->seats_count->HeaderText = L"кол-во мест";
+            this->seats_count->Name = L"seats_count";
+            this->seats_count->ReadOnly = true;
+            this->seats_count->Width = 150;
+            // 
+            // price
+            // 
+            this->price->HeaderText = L"цена";
+            this->price->Name = L"price";
+            this->price->ReadOnly = true;
             // 
             // search
             // 

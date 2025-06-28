@@ -43,6 +43,22 @@ namespace practicmain1 {
 		}
 	private: System::Windows::Forms::DataGridView^ main_table;
 	protected:
+
+
+
+
+
+
+
+	private: System::Windows::Forms::Button^ table_exit_button;
+	private: System::Windows::Forms::Button^ search_routes_button;
+	private: System::Windows::Forms::Button^ change_button;
+
+
+	private: System::Windows::Forms::Button^ delete_route_button;
+	private: System::Windows::Forms::Button^ new_route_button;
+	private: System::Windows::Forms::Label^ table_name;
+	private: System::Windows::Forms::Button^ back_button;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ index;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ number;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ destination;
@@ -50,14 +66,6 @@ namespace practicmain1 {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ time;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ seats_count;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ price;
-	private: System::Windows::Forms::Button^ table_exit_button;
-	private: System::Windows::Forms::Button^ search_routes_button;
-
-	private: System::Windows::Forms::Button^ button3;
-	private: System::Windows::Forms::Button^ delete_route_button;
-	private: System::Windows::Forms::Button^ new_route_button;
-	private: System::Windows::Forms::Label^ table_name;
-	private: System::Windows::Forms::Button^ back_button;
 
 
 	private:
@@ -71,9 +79,52 @@ namespace practicmain1 {
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
+		void LoadRoutesData()
+		{
+			try
+			{
+				main_table->Rows->Clear();
+
+				StreamReader^ reader = gcnew StreamReader("routes.txt", System::Text::Encoding::GetEncoding(1251));
+				int index = 1;
+
+				while (!reader->EndOfStream)
+				{
+					String^ line = reader->ReadLine();
+					array<String^>^ parts = line->Split(' ');
+
+					if (parts->Length >= 6)
+					{
+						main_table->Rows->Add(
+							index++,
+							parts[0],
+							parts[1],
+							parts[2],
+							parts[3],
+							parts[4],
+							parts[5]
+						);
+					}
+				}
+			}
+			catch (Exception^ ex)
+			{
+				MessageBox::Show("Ошибка при загрузке данных: " + ex->Message,
+					"Ошибка",
+					MessageBoxButtons::OK,
+					MessageBoxIcon::Error);
+			}
+		}
 		void InitializeComponent(void)
 		{
 			this->main_table = (gcnew System::Windows::Forms::DataGridView());
+			this->table_exit_button = (gcnew System::Windows::Forms::Button());
+			this->search_routes_button = (gcnew System::Windows::Forms::Button());
+			this->change_button = (gcnew System::Windows::Forms::Button());
+			this->delete_route_button = (gcnew System::Windows::Forms::Button());
+			this->new_route_button = (gcnew System::Windows::Forms::Button());
+			this->table_name = (gcnew System::Windows::Forms::Label());
+			this->back_button = (gcnew System::Windows::Forms::Button());
 			this->index = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->number = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->destination = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
@@ -81,19 +132,17 @@ namespace practicmain1 {
 			this->time = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->seats_count = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->price = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->table_exit_button = (gcnew System::Windows::Forms::Button());
-			this->search_routes_button = (gcnew System::Windows::Forms::Button());
-			this->button3 = (gcnew System::Windows::Forms::Button());
-			this->delete_route_button = (gcnew System::Windows::Forms::Button());
-			this->new_route_button = (gcnew System::Windows::Forms::Button());
-			this->table_name = (gcnew System::Windows::Forms::Label());
-			this->back_button = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->main_table))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// main_table
 			// 
 			this->main_table->AccessibleRole = System::Windows::Forms::AccessibleRole::None;
+			this->main_table->AllowUserToAddRows = false;
+			this->main_table->AllowUserToDeleteRows = false;
+			this->main_table->AllowUserToOrderColumns = true;
+			this->main_table->AllowUserToResizeColumns = false;
+			this->main_table->AllowUserToResizeRows = false;
 			this->main_table->ColumnHeadersHeight = 50;
 			this->main_table->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(7) {
 				this->index, this->number,
@@ -101,49 +150,9 @@ namespace practicmain1 {
 			});
 			this->main_table->Location = System::Drawing::Point(20, 53);
 			this->main_table->Name = L"main_table";
-			this->main_table->Size = System::Drawing::Size(950, 526);
+			this->main_table->ReadOnly = true;
+			this->main_table->Size = System::Drawing::Size(949, 526);
 			this->main_table->TabIndex = 11;
-			// 
-			// index
-			// 
-			this->index->HeaderText = L"Индекс";
-			this->index->Name = L"index";
-			this->index->Width = 50;
-			// 
-			// number
-			// 
-			this->number->HeaderText = L"Номер рейса";
-			this->number->Name = L"number";
-			// 
-			// destination
-			// 
-			this->destination->HeaderText = L"Пункт назначения";
-			this->destination->Name = L"destination";
-			this->destination->Width = 200;
-			// 
-			// date
-			// 
-			this->date->HeaderText = L"Дата";
-			this->date->Name = L"date";
-			this->date->Width = 150;
-			// 
-			// time
-			// 
-			this->time->HeaderText = L"Время(чч:мм)";
-			this->time->Name = L"time";
-			this->time->Width = 150;
-			// 
-			// seats_count
-			// 
-			this->seats_count->HeaderText = L"кол-во мест";
-			this->seats_count->Name = L"seats_count";
-			this->seats_count->Width = 150;
-			// 
-			// price
-			// 
-			this->price->HeaderText = L"цена";
-			this->price->Name = L"price";
-			this->price->Width = 150;
 			// 
 			// table_exit_button
 			// 
@@ -169,16 +178,16 @@ namespace practicmain1 {
 			this->search_routes_button->UseVisualStyleBackColor = true;
 			this->search_routes_button->Click += gcnew System::EventHandler(this, &table_admin1::search_routes_button_Click);
 			// 
-			// button3
+			// change_button
 			// 
-			this->button3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->change_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->button3->Location = System::Drawing::Point(332, 585);
-			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(150, 50);
-			this->button3->TabIndex = 8;
-			this->button3->Text = L"изменение рейса";
-			this->button3->UseVisualStyleBackColor = true;
+			this->change_button->Location = System::Drawing::Point(332, 585);
+			this->change_button->Name = L"change_button";
+			this->change_button->Size = System::Drawing::Size(150, 50);
+			this->change_button->TabIndex = 8;
+			this->change_button->Text = L"изменение рейса";
+			this->change_button->UseVisualStyleBackColor = true;
 			// 
 			// delete_route_button
 			// 
@@ -225,6 +234,53 @@ namespace practicmain1 {
 			this->back_button->UseVisualStyleBackColor = true;
 			this->back_button->Click += gcnew System::EventHandler(this, &table_admin1::back_button_Click);
 			// 
+			// index
+			// 
+			this->index->HeaderText = L"Индекс";
+			this->index->Name = L"index";
+			this->index->ReadOnly = true;
+			this->index->Width = 50;
+			// 
+			// number
+			// 
+			this->number->HeaderText = L"Номер рейса";
+			this->number->Name = L"number";
+			this->number->ReadOnly = true;
+			// 
+			// destination
+			// 
+			this->destination->HeaderText = L"Пункт назначения";
+			this->destination->Name = L"destination";
+			this->destination->ReadOnly = true;
+			this->destination->Width = 200;
+			// 
+			// date
+			// 
+			this->date->HeaderText = L"Дата";
+			this->date->Name = L"date";
+			this->date->ReadOnly = true;
+			this->date->Width = 150;
+			// 
+			// time
+			// 
+			this->time->HeaderText = L"Время(чч:мм)";
+			this->time->Name = L"time";
+			this->time->ReadOnly = true;
+			this->time->Width = 150;
+			// 
+			// seats_count
+			// 
+			this->seats_count->HeaderText = L"кол-во мест";
+			this->seats_count->Name = L"seats_count";
+			this->seats_count->ReadOnly = true;
+			this->seats_count->Width = 150;
+			// 
+			// price
+			// 
+			this->price->HeaderText = L"цена";
+			this->price->Name = L"price";
+			this->price->ReadOnly = true;
+			// 
 			// table_admin1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -235,7 +291,7 @@ namespace practicmain1 {
 			this->Controls->Add(this->back_button);
 			this->Controls->Add(this->table_exit_button);
 			this->Controls->Add(this->search_routes_button);
-			this->Controls->Add(this->button3);
+			this->Controls->Add(this->change_button);
 			this->Controls->Add(this->delete_route_button);
 			this->Controls->Add(this->new_route_button);
 			this->Controls->Add(this->table_name);
@@ -250,10 +306,9 @@ namespace practicmain1 {
 
 		}
 #pragma endregion
-	private: System::Void hui_Click(System::Object^ sender, System::EventArgs^ e) {
-	}
-	private: System::Void table_admin1_Load(System::Object^ sender, System::EventArgs^ e) {
-	}
+private: System::Void table_admin1_Load(System::Object^ sender, System::EventArgs^ e) {
+	LoadRoutesData();
+}
 private: System::Void table_exit_button_Click(System::Object^ sender, System::EventArgs^ e) {
 	Application::Exit();
 }
@@ -267,6 +322,9 @@ private: System::Void table_admin1_FormClosing(System::Object^ sender, System::W
 	}
 }
 private: System::Void search_routes_button_Click(System::Object^ sender, System::EventArgs^ e) {
+	search^ Search = gcnew search(this);
+	this->Hide();
+	Search->Show();
 }
 };
 }
