@@ -86,25 +86,28 @@ namespace practicmain1 {
 			{
 				main_table->Rows->Clear();
 
-				StreamReader^ reader = gcnew StreamReader("routes.txt", System::Text::Encoding::GetEncoding(1251));
+				// »спользуем using дл€ автоматического закрыти€ потока
+				String^ allText = File::ReadAllText("routes.txt", System::Text::Encoding::GetEncoding(1251));
+				array<String^>^ lines = allText->Split('\n');
 				int index = 1;
 
-				while (!reader->EndOfStream)
+				for each (String ^ line in lines)
 				{
-					String^ line = reader->ReadLine();
-					array<String^>^ parts = line->Split(' ');
-
-					if (parts->Length >= 6)
+					if (!String::IsNullOrWhiteSpace(line))
 					{
-						main_table->Rows->Add(
-							index++,
-							parts[0],
-							parts[1],
-							parts[2],
-							parts[3],
-							parts[4],
-							parts[5]
-						);
+						array<String^>^ parts = line->Trim()->Split(' ');
+						if (parts->Length >= 6)
+						{
+							main_table->Rows->Add(
+								index++,
+								parts[0],
+								parts[1],
+								parts[2],
+								parts[3],
+								parts[4],
+								parts[5]
+							);
+						}
 					}
 				}
 			}
@@ -331,6 +334,7 @@ private: System::Void search_routes_button_Click(System::Object^ sender, System:
 private: System::Void delete_route_button_Click(System::Object^ sender, System::EventArgs^ e) {
 	delete_route^ Delete = gcnew delete_route();
 	Delete->ShowDialog();
+	LoadRoutesData();
 }
 };
 }

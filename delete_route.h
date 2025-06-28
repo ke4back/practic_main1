@@ -8,19 +8,20 @@ namespace practicmain1 {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::IO;
 
 	/// <summary>
 	/// Summary for delete_route
 	/// </summary>
 	public ref class delete_route : public System::Windows::Forms::Form
 	{
+	private:
+		int routesCount;
 	public:
 		delete_route(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
+			LoadRoutesCount();
 		}
 
 	protected:
@@ -52,6 +53,33 @@ namespace practicmain1 {
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
+		/// 
+		void LoadRoutesCount()
+		{
+			try
+			{
+				if (File::Exists("routes.txt"))
+				{
+					StreamReader^ reader = gcnew StreamReader("routes.txt");
+					routesCount = 0;
+					while (reader->ReadLine() != nullptr)
+					{
+						routesCount++;
+					}
+					reader->Close();
+				}
+				else
+				{
+					routesCount = 0;
+				}
+			}
+			catch (Exception^ ex)
+			{
+				MessageBox::Show("Ошибка при чтении файла: " + ex->Message,
+					"Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			}
+		}
+
 		void InitializeComponent(void)
 		{
 			this->delete_label = (gcnew System::Windows::Forms::Label());
@@ -63,13 +91,13 @@ namespace practicmain1 {
 			// delete_label
 			// 
 			this->delete_label->AutoSize = true;
-			this->delete_label->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->delete_label->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->delete_label->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)),
 				static_cast<System::Int32>(static_cast<System::Byte>(32)));
 			this->delete_label->Location = System::Drawing::Point(12, 9);
 			this->delete_label->Name = L"delete_label";
-			this->delete_label->Size = System::Drawing::Size(382, 25);
+			this->delete_label->Size = System::Drawing::Size(344, 22);
 			this->delete_label->TabIndex = 0;
 			this->delete_label->Text = L"Выберите индекс строки для удаления ";
 			// 
@@ -92,6 +120,7 @@ namespace practicmain1 {
 			this->delete_button->TabIndex = 2;
 			this->delete_button->Text = L"Удалить строку";
 			this->delete_button->UseVisualStyleBackColor = true;
+			this->delete_button->Click += gcnew System::EventHandler(this, &delete_route::delete_button_Click);
 			// 
 			// back_button
 			// 
@@ -129,5 +158,78 @@ namespace practicmain1 {
 	private: System::Void back_button_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->Close();
 	}
+private: System::Void delete_button_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (String::IsNullOrEmpty(maskedTextBox1->Text))
+	{
+		MessageBox::Show("Введите номер строки для удаления!", "Ошибка",
+			MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		return;
+	}
+
+	int lineNumber;
+	if (!Int32::TryParse(maskedTextBox1->Text, lineNumber) || lineNumber < 1 || lineNumber > routesCount)
+	{
+		MessageBox::Show("Некорректный номер строки! Допустимый диапазон: 1-" + routesCount, "Ошибка",
+			MessageBoxButtons::OK, MessageBoxIcon::Error);
+		return;
+	}
+
+	try
+	{
+		String^ filePath = "routes.txt";
+		String^ tempFilePath = "temp_routes.txt";
+
+		if (!File::Exists(filePath))
+		{
+			MessageBox::Show("Файл с данными не найден!", "Ошибка",
+				MessageBoxButtons::OK, MessageBoxIcon::Error);
+			return;
+		}
+
+		// Читаем все строки из файла
+		array<String^>^ lines = File::ReadAllLines(filePath, System::Text::Encoding::GetEncoding(1251));
+
+		// Подтверждение удаления
+		String^ message = String::Format("Вы действительно хотите удалить строку {0}?\n\n{1}",
+			lineNumber, lines[lineNumber - 1]);
+
+		if (MessageBox::Show(message, "Подтверждение удаления",
+			MessageBoxButtons::YesNo,
+			MessageBoxIcon::Question) == System::Windows::Forms::DialogResult::Yes)
+		{
+			// Создаем временный файл
+			StreamWriter^ tempFile = gcnew StreamWriter(tempFilePath, false, System::Text::Encoding::GetEncoding(1251));
+
+			// Копируем все строки кроме удаляемой
+			for (int i = 0; i < lines->Length; i++)
+			{
+				if (i != lineNumber - 1)
+				{
+					tempFile->WriteLine(lines[i]);
+				}
+			}
+			tempFile->Close();
+
+			// Удаляем оригинальный файл и переименовываем временный
+			File::Delete(filePath);
+			File::Move(tempFilePath, filePath);
+
+			MessageBox::Show("Строка успешно удалена!", "Успех",
+				MessageBoxButtons::OK, MessageBoxIcon::Information);
+
+			// Обновляем счетчик
+			routesCount--;
+			delete_label->Text = "Выберите индекс строки для удаления (1-" + routesCount + ")";
+			maskedTextBox1->Text = "";
+		}
+	}
+	catch (Exception^ ex)
+	{
+		MessageBox::Show("Ошибка при удалении строки: " + ex->Message,
+			"Ошибка",
+			MessageBoxButtons::OK,
+			MessageBoxIcon::Error);
+	}
+}
 };
 }
