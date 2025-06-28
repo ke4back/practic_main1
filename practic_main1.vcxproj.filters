@@ -33,6 +33,9 @@
     <ClCompile Include="table_admin1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="delete_route.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -54,6 +57,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Routes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="delete_route.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

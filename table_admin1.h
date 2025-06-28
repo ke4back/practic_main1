@@ -1,6 +1,7 @@
 #pragma once
 #include "Routes.h"
 #include "search.h"
+#include "delete_route.h"
 
 namespace practicmain1 {
 
@@ -118,13 +119,6 @@ namespace practicmain1 {
 		void InitializeComponent(void)
 		{
 			this->main_table = (gcnew System::Windows::Forms::DataGridView());
-			this->table_exit_button = (gcnew System::Windows::Forms::Button());
-			this->search_routes_button = (gcnew System::Windows::Forms::Button());
-			this->change_button = (gcnew System::Windows::Forms::Button());
-			this->delete_route_button = (gcnew System::Windows::Forms::Button());
-			this->new_route_button = (gcnew System::Windows::Forms::Button());
-			this->table_name = (gcnew System::Windows::Forms::Label());
-			this->back_button = (gcnew System::Windows::Forms::Button());
 			this->index = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->number = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->destination = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
@@ -132,6 +126,13 @@ namespace practicmain1 {
 			this->time = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->seats_count = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->price = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->table_exit_button = (gcnew System::Windows::Forms::Button());
+			this->search_routes_button = (gcnew System::Windows::Forms::Button());
+			this->change_button = (gcnew System::Windows::Forms::Button());
+			this->delete_route_button = (gcnew System::Windows::Forms::Button());
+			this->new_route_button = (gcnew System::Windows::Forms::Button());
+			this->table_name = (gcnew System::Windows::Forms::Label());
+			this->back_button = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->main_table))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -153,86 +154,6 @@ namespace practicmain1 {
 			this->main_table->ReadOnly = true;
 			this->main_table->Size = System::Drawing::Size(949, 526);
 			this->main_table->TabIndex = 11;
-			// 
-			// table_exit_button
-			// 
-			this->table_exit_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->table_exit_button->Location = System::Drawing::Point(819, 585);
-			this->table_exit_button->Name = L"table_exit_button";
-			this->table_exit_button->Size = System::Drawing::Size(150, 50);
-			this->table_exit_button->TabIndex = 5;
-			this->table_exit_button->Text = L"выход";
-			this->table_exit_button->UseVisualStyleBackColor = true;
-			this->table_exit_button->Click += gcnew System::EventHandler(this, &table_admin1::table_exit_button_Click);
-			// 
-			// search_routes_button
-			// 
-			this->search_routes_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->search_routes_button->Location = System::Drawing::Point(488, 585);
-			this->search_routes_button->Name = L"search_routes_button";
-			this->search_routes_button->Size = System::Drawing::Size(150, 50);
-			this->search_routes_button->TabIndex = 6;
-			this->search_routes_button->Text = L"поиск рейсов";
-			this->search_routes_button->UseVisualStyleBackColor = true;
-			this->search_routes_button->Click += gcnew System::EventHandler(this, &table_admin1::search_routes_button_Click);
-			// 
-			// change_button
-			// 
-			this->change_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->change_button->Location = System::Drawing::Point(332, 585);
-			this->change_button->Name = L"change_button";
-			this->change_button->Size = System::Drawing::Size(150, 50);
-			this->change_button->TabIndex = 8;
-			this->change_button->Text = L"изменение рейса";
-			this->change_button->UseVisualStyleBackColor = true;
-			// 
-			// delete_route_button
-			// 
-			this->delete_route_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->delete_route_button->Location = System::Drawing::Point(176, 585);
-			this->delete_route_button->Name = L"delete_route_button";
-			this->delete_route_button->Size = System::Drawing::Size(150, 50);
-			this->delete_route_button->TabIndex = 9;
-			this->delete_route_button->Text = L"удаление рейса";
-			this->delete_route_button->UseVisualStyleBackColor = true;
-			// 
-			// new_route_button
-			// 
-			this->new_route_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->new_route_button->Location = System::Drawing::Point(20, 585);
-			this->new_route_button->Name = L"new_route_button";
-			this->new_route_button->Size = System::Drawing::Size(150, 50);
-			this->new_route_button->TabIndex = 10;
-			this->new_route_button->Text = L"запись нового рейса";
-			this->new_route_button->UseVisualStyleBackColor = true;
-			// 
-			// table_name
-			// 
-			this->table_name->AutoSize = true;
-			this->table_name->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->table_name->Location = System::Drawing::Point(15, 25);
-			this->table_name->Name = L"table_name";
-			this->table_name->Size = System::Drawing::Size(270, 25);
-			this->table_name->TabIndex = 4;
-			this->table_name->Text = L"Все данные из базы данных";
-			// 
-			// back_button
-			// 
-			this->back_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->back_button->Location = System::Drawing::Point(663, 585);
-			this->back_button->Name = L"back_button";
-			this->back_button->Size = System::Drawing::Size(150, 50);
-			this->back_button->TabIndex = 5;
-			this->back_button->Text = L"назад";
-			this->back_button->UseVisualStyleBackColor = true;
-			this->back_button->Click += gcnew System::EventHandler(this, &table_admin1::back_button_Click);
 			// 
 			// index
 			// 
@@ -281,6 +202,87 @@ namespace practicmain1 {
 			this->price->Name = L"price";
 			this->price->ReadOnly = true;
 			// 
+			// table_exit_button
+			// 
+			this->table_exit_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->table_exit_button->Location = System::Drawing::Point(819, 585);
+			this->table_exit_button->Name = L"table_exit_button";
+			this->table_exit_button->Size = System::Drawing::Size(150, 50);
+			this->table_exit_button->TabIndex = 5;
+			this->table_exit_button->Text = L"выход";
+			this->table_exit_button->UseVisualStyleBackColor = true;
+			this->table_exit_button->Click += gcnew System::EventHandler(this, &table_admin1::table_exit_button_Click);
+			// 
+			// search_routes_button
+			// 
+			this->search_routes_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->search_routes_button->Location = System::Drawing::Point(488, 585);
+			this->search_routes_button->Name = L"search_routes_button";
+			this->search_routes_button->Size = System::Drawing::Size(150, 50);
+			this->search_routes_button->TabIndex = 6;
+			this->search_routes_button->Text = L"поиск рейсов";
+			this->search_routes_button->UseVisualStyleBackColor = true;
+			this->search_routes_button->Click += gcnew System::EventHandler(this, &table_admin1::search_routes_button_Click);
+			// 
+			// change_button
+			// 
+			this->change_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->change_button->Location = System::Drawing::Point(332, 585);
+			this->change_button->Name = L"change_button";
+			this->change_button->Size = System::Drawing::Size(150, 50);
+			this->change_button->TabIndex = 8;
+			this->change_button->Text = L"изменение рейса";
+			this->change_button->UseVisualStyleBackColor = true;
+			// 
+			// delete_route_button
+			// 
+			this->delete_route_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->delete_route_button->Location = System::Drawing::Point(176, 585);
+			this->delete_route_button->Name = L"delete_route_button";
+			this->delete_route_button->Size = System::Drawing::Size(150, 50);
+			this->delete_route_button->TabIndex = 9;
+			this->delete_route_button->Text = L"удаление рейса";
+			this->delete_route_button->UseVisualStyleBackColor = true;
+			this->delete_route_button->Click += gcnew System::EventHandler(this, &table_admin1::delete_route_button_Click);
+			// 
+			// new_route_button
+			// 
+			this->new_route_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->new_route_button->Location = System::Drawing::Point(20, 585);
+			this->new_route_button->Name = L"new_route_button";
+			this->new_route_button->Size = System::Drawing::Size(150, 50);
+			this->new_route_button->TabIndex = 10;
+			this->new_route_button->Text = L"запись нового рейса";
+			this->new_route_button->UseVisualStyleBackColor = true;
+			// 
+			// table_name
+			// 
+			this->table_name->AutoSize = true;
+			this->table_name->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->table_name->Location = System::Drawing::Point(15, 25);
+			this->table_name->Name = L"table_name";
+			this->table_name->Size = System::Drawing::Size(270, 25);
+			this->table_name->TabIndex = 4;
+			this->table_name->Text = L"Все данные из базы данных";
+			// 
+			// back_button
+			// 
+			this->back_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->back_button->Location = System::Drawing::Point(663, 585);
+			this->back_button->Name = L"back_button";
+			this->back_button->Size = System::Drawing::Size(150, 50);
+			this->back_button->TabIndex = 5;
+			this->back_button->Text = L"назад";
+			this->back_button->UseVisualStyleBackColor = true;
+			this->back_button->Click += gcnew System::EventHandler(this, &table_admin1::back_button_Click);
+			// 
 			// table_admin1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -325,6 +327,10 @@ private: System::Void search_routes_button_Click(System::Object^ sender, System:
 	search^ Search = gcnew search(this);
 	this->Hide();
 	Search->Show();
+}
+private: System::Void delete_route_button_Click(System::Object^ sender, System::EventArgs^ e) {
+	delete_route^ Delete = gcnew delete_route();
+	Delete->ShowDialog();
 }
 };
 }
