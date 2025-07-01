@@ -1,6 +1,6 @@
 #pragma once
-#include"search.h"
-
+#include "search.h"
+#include "cities_game.h"
 
 namespace practicmain1 {
 
@@ -57,6 +57,7 @@ namespace practicmain1 {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ seats_count;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ price;
 	private: System::Windows::Forms::Button^ upd_btn;
+	private: System::Windows::Forms::Button^ game_button;
 
 	protected:
 
@@ -125,6 +126,7 @@ namespace practicmain1 {
 			this->seats_count = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->price = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->upd_btn = (gcnew System::Windows::Forms::Button());
+			this->game_button = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->main_table))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -143,7 +145,7 @@ namespace practicmain1 {
 			// 
 			// search_routes_button
 			// 
-			this->search_routes_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13, System::Drawing::FontStyle::Regular,
+			this->search_routes_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
 			this->search_routes_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)),
 				static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)));
@@ -158,7 +160,7 @@ namespace practicmain1 {
 			// table_exit_button
 			// 
 			this->table_exit_button->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
-			this->table_exit_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->table_exit_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->table_exit_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)),
 				static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)));
@@ -247,6 +249,18 @@ namespace practicmain1 {
 			this->upd_btn->UseVisualStyleBackColor = true;
 			this->upd_btn->Click += gcnew System::EventHandler(this, &table::upd_btn_Click);
 			// 
+			// game_button
+			// 
+			this->game_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->game_button->Location = System::Drawing::Point(662, 599);
+			this->game_button->Name = L"game_button";
+			this->game_button->Size = System::Drawing::Size(150, 49);
+			this->game_button->TabIndex = 5;
+			this->game_button->Text = L"Игра";
+			this->game_button->UseVisualStyleBackColor = true;
+			this->game_button->Click += gcnew System::EventHandler(this, &table::game_button_Click);
+			// 
 			// table
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -254,6 +268,7 @@ namespace practicmain1 {
 			this->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
 			this->BackColor = System::Drawing::Color::Silver;
 			this->ClientSize = System::Drawing::Size(987, 661);
+			this->Controls->Add(this->game_button);
 			this->Controls->Add(this->upd_btn);
 			this->Controls->Add(this->main_table);
 			this->Controls->Add(this->table_exit_button);
@@ -292,6 +307,11 @@ private: System::Void table_FormClosing(System::Object^ sender, System::Windows:
 }
 private: System::Void upd_btn_Click(System::Object^ sender, System::EventArgs^ e) {
 	LoadRoutesData();
+}
+private: System::Void game_button_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->Hide();
+	cities_game^ Game = gcnew cities_game(this);
+	Game->ShowDialog();
 }
 };
 }

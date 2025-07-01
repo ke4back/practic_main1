@@ -121,8 +121,10 @@
   <ItemGroup>
     <ClCompile Include="add_route.cpp" />
     <ClCompile Include="auth.cpp" />
+    <ClCompile Include="cities_game.cpp" />
     <ClCompile Include="delete_route.cpp" />
     <ClCompile Include="edit.cpp" />
+    <ClCompile Include="game.cpp" />
     <ClCompile Include="Info.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="search.cpp" />
@@ -136,10 +138,16 @@
     <ClInclude Include="auth.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="cities_game.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="delete_route.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="edit.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="game.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Info.h">
@@ -166,11 +174,17 @@
     <EmbeddedResource Include="auth.resx">
       <DependentUpon>auth.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="cities_game.resx">
+      <DependentUpon>cities_game.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="delete_route.resx">
       <DependentUpon>delete_route.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="edit.resx">
       <DependentUpon>edit.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="game.resx">
+      <DependentUpon>game.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Info.resx">
       <DependentUpon>Info.h</DependentUpon>
