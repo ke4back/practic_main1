@@ -35,7 +35,7 @@ namespace practicmain1 {
 		int attempts;
 		bool game_over;
 		bool first_turn;
-		char last_letter;
+		String^ last_letter;
 		String^ citiesFilePath;
 		String^ citiesOutFilePath;
 		StreamReader^ cities;
@@ -47,7 +47,7 @@ namespace practicmain1 {
 			attempts = 3;
 			game_over = false;
 			first_turn = true;
-			last_letter = '\0';
+			last_letter = nullptr;
 
 			citiesFilePath = "CITIES.txt";
 			citiesOutFilePath = "cities_out.txt";
@@ -110,14 +110,18 @@ namespace practicmain1 {
 			citiesOut->Close();
 		}
 
-		String^ GetComputerCity(char letter)
+		String^ GetComputerCity(String^ letter)
 		{
+			if (letter == nullptr || letter->Length == 0)
+				return nullptr;
+
 			cities = gcnew StreamReader(citiesFilePath, Encoding::GetEncoding(1251));
 			while (!cities->EndOfStream)
 			{
 				String^ city = cities->ReadLine()->Trim();
 
-				if (city->Length > 0 && Char::ToLower(city[0]) == Char::ToLower(letter))
+				if (city->Length > 0 &&
+					city->Substring(0, 1)->Equals(letter, StringComparison::CurrentCultureIgnoreCase))
 				{
 					if (!CityWasUsed(city))
 					{
@@ -130,15 +134,25 @@ namespace practicmain1 {
 			return nullptr;
 		}
 
-		char GetLastLetter(String^ city)
+
+		String^ GetLastLetter(String^ city)
 		{
-			char last = city[city->Length - 1];
-			if (last == 'ь' || last == 'ъ' || last == 'ы')
+			if (city->Length == 0)
+				return nullptr;
+
+			String^ lastChar = city->Substring(city->Length - 1, 1);
+
+			if (lastChar->Equals("ь", StringComparison::CurrentCultureIgnoreCase) ||
+				lastChar->Equals("ъ", StringComparison::CurrentCultureIgnoreCase) ||
+				lastChar->Equals("ы", StringComparison::CurrentCultureIgnoreCase))
 			{
-				last = city[city->Length - 2];
+				if (city->Length > 1)
+					lastChar = city->Substring(city->Length - 2, 1);
 			}
-			return Char::ToLower(last);
+
+			return lastChar->ToLower();
 		}
+
 
 	protected:
 		/// <summary>
@@ -411,18 +425,22 @@ namespace practicmain1 {
 			 if (!first_turn)
 			 {
 				 char firstChar = Char::ToLower(city[0]);
-				 if (firstChar != last_letter)
+				 if (!first_turn && last_letter != nullptr)
 				 {
-					 incorrect_data->Text = String::Format("Город должен начинаться на букву '{0}'", last_letter);
-					 incorrect_data->Visible = true;
-					 attempts--;
-					 attempts_count->Text = attempts.ToString();
-
-					 if (attempts <= 0)
+					 String^ firstChar = city->Substring(0, 1)->ToLower();
+					 if (!firstChar->Equals(last_letter, StringComparison::CurrentCultureIgnoreCase))
 					 {
-						 EndGame(false);
+						 incorrect_data->Text = String::Format("Город должен начинаться на букву '{0}'", last_letter);
+						 incorrect_data->Visible = true;
+						 attempts--;
+						 attempts_count->Text = attempts.ToString();
+
+						 if (attempts <= 0)
+						 {
+							 EndGame(false);
+						 }
+						 return;
 					 }
-					 return;
 				 }
 			 }
 
