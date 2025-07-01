@@ -133,6 +133,8 @@ namespace practicmain1 {
 			this->table_name->AutoSize = true;
 			this->table_name->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
+			this->table_name->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)),
+				static_cast<System::Int32>(static_cast<System::Byte>(32)));
 			this->table_name->Location = System::Drawing::Point(13, 30);
 			this->table_name->Name = L"table_name";
 			this->table_name->Size = System::Drawing::Size(270, 25);
@@ -143,6 +145,8 @@ namespace practicmain1 {
 			// 
 			this->search_routes_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
+			this->search_routes_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)),
+				static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)));
 			this->search_routes_button->Location = System::Drawing::Point(18, 599);
 			this->search_routes_button->Name = L"search_routes_button";
 			this->search_routes_button->Size = System::Drawing::Size(150, 50);
@@ -156,6 +160,8 @@ namespace practicmain1 {
 			this->table_exit_button->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
 			this->table_exit_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
+			this->table_exit_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)),
+				static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)));
 			this->table_exit_button->Location = System::Drawing::Point(818, 599);
 			this->table_exit_button->Name = L"table_exit_button";
 			this->table_exit_button->Size = System::Drawing::Size(150, 50);
@@ -231,6 +237,8 @@ namespace practicmain1 {
 			// 
 			// upd_btn
 			// 
+			this->upd_btn->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)),
+				static_cast<System::Int32>(static_cast<System::Byte>(32)));
 			this->upd_btn->Location = System::Drawing::Point(878, 21);
 			this->upd_btn->Name = L"upd_btn";
 			this->upd_btn->Size = System::Drawing::Size(89, 33);

@@ -100,6 +100,7 @@ namespace practicmain1 {
 			this->delete_label->Size = System::Drawing::Size(344, 22);
 			this->delete_label->TabIndex = 0;
 			this->delete_label->Text = L"Выберите индекс строки для удаления ";
+			this->delete_label->Click += gcnew System::EventHandler(this, &delete_route::delete_label_Click);
 			// 
 			// maskedTextBox1
 			// 
@@ -112,8 +113,10 @@ namespace practicmain1 {
 			// 
 			// delete_button
 			// 
-			this->delete_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->delete_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
+			this->delete_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)),
+				static_cast<System::Int32>(static_cast<System::Byte>(32)));
 			this->delete_button->Location = System::Drawing::Point(173, 85);
 			this->delete_button->Name = L"delete_button";
 			this->delete_button->Size = System::Drawing::Size(218, 29);
@@ -124,8 +127,10 @@ namespace practicmain1 {
 			// 
 			// back_button
 			// 
-			this->back_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->back_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
+			this->back_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)),
+				static_cast<System::Int32>(static_cast<System::Byte>(32)));
 			this->back_button->Location = System::Drawing::Point(17, 85);
 			this->back_button->Name = L"back_button";
 			this->back_button->Size = System::Drawing::Size(149, 29);
@@ -224,6 +229,8 @@ private: System::Void delete_button_Click(System::Object^ sender, System::EventA
 			MessageBoxButtons::OK,
 			MessageBoxIcon::Error);
 	}
+}
+private: System::Void delete_label_Click(System::Object^ sender, System::EventArgs^ e) {
 }
 };
 }

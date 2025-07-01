@@ -74,6 +74,8 @@ namespace practicmain1 {
 			this->info_label->AutoSize = true;
 			this->info_label->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
+			this->info_label->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)),
+				static_cast<System::Int32>(static_cast<System::Byte>(32)));
 			this->info_label->Location = System::Drawing::Point(12, 9);
 			this->info_label->Name = L"info_label";
 			this->info_label->Size = System::Drawing::Size(203, 20);
@@ -84,6 +86,8 @@ namespace practicmain1 {
 			// 
 			this->exit_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
+			this->exit_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)),
+				static_cast<System::Int32>(static_cast<System::Byte>(32)));
 			this->exit_button->Location = System::Drawing::Point(102, 441);
 			this->exit_button->Name = L"exit_button";
 			this->exit_button->Size = System::Drawing::Size(194, 36);

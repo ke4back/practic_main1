@@ -200,8 +200,10 @@ namespace practicmain1 {
 			// 
 			// table_exit_button
 			// 
-			this->table_exit_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->table_exit_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
+			this->table_exit_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)),
+				static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)));
 			this->table_exit_button->Location = System::Drawing::Point(819, 585);
 			this->table_exit_button->Name = L"table_exit_button";
 			this->table_exit_button->Size = System::Drawing::Size(150, 50);
@@ -212,9 +214,11 @@ namespace practicmain1 {
 			// 
 			// search_routes_button
 			// 
-			this->search_routes_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->search_routes_button->Location = System::Drawing::Point(488, 585);
+			this->search_routes_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
+			this->search_routes_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)),
+				static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)));
+			this->search_routes_button->Location = System::Drawing::Point(497, 585);
 			this->search_routes_button->Name = L"search_routes_button";
 			this->search_routes_button->Size = System::Drawing::Size(150, 50);
 			this->search_routes_button->TabIndex = 6;
@@ -224,9 +228,11 @@ namespace practicmain1 {
 			// 
 			// change_button
 			// 
-			this->change_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->change_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->change_button->Location = System::Drawing::Point(332, 585);
+			this->change_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)),
+				static_cast<System::Int32>(static_cast<System::Byte>(32)));
+			this->change_button->Location = System::Drawing::Point(341, 585);
 			this->change_button->Name = L"change_button";
 			this->change_button->Size = System::Drawing::Size(150, 50);
 			this->change_button->TabIndex = 8;
@@ -236,9 +242,11 @@ namespace practicmain1 {
 			// 
 			// delete_route_button
 			// 
-			this->delete_route_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->delete_route_button->Location = System::Drawing::Point(176, 585);
+			this->delete_route_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
+			this->delete_route_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)),
+				static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)));
+			this->delete_route_button->Location = System::Drawing::Point(185, 585);
 			this->delete_route_button->Name = L"delete_route_button";
 			this->delete_route_button->Size = System::Drawing::Size(150, 50);
 			this->delete_route_button->TabIndex = 9;
@@ -248,11 +256,13 @@ namespace practicmain1 {
 			// 
 			// new_route_button
 			// 
-			this->new_route_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->new_route_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
+			this->new_route_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)),
+				static_cast<System::Int32>(static_cast<System::Byte>(32)));
 			this->new_route_button->Location = System::Drawing::Point(20, 585);
 			this->new_route_button->Name = L"new_route_button";
-			this->new_route_button->Size = System::Drawing::Size(150, 50);
+			this->new_route_button->Size = System::Drawing::Size(159, 50);
 			this->new_route_button->TabIndex = 10;
 			this->new_route_button->Text = L"запись нового рейса";
 			this->new_route_button->UseVisualStyleBackColor = true;
@@ -263,6 +273,8 @@ namespace practicmain1 {
 			this->table_name->AutoSize = true;
 			this->table_name->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
+			this->table_name->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)),
+				static_cast<System::Int32>(static_cast<System::Byte>(32)));
 			this->table_name->Location = System::Drawing::Point(15, 25);
 			this->table_name->Name = L"table_name";
 			this->table_name->Size = System::Drawing::Size(270, 25);
@@ -271,8 +283,10 @@ namespace practicmain1 {
 			// 
 			// back_button
 			// 
-			this->back_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->back_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
+			this->back_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)),
+				static_cast<System::Int32>(static_cast<System::Byte>(32)));
 			this->back_button->Location = System::Drawing::Point(663, 585);
 			this->back_button->Name = L"back_button";
 			this->back_button->Size = System::Drawing::Size(150, 50);
@@ -283,6 +297,8 @@ namespace practicmain1 {
 			// 
 			// upd_button
 			// 
+			this->upd_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)),
+				static_cast<System::Int32>(static_cast<System::Byte>(32)));
 			this->upd_button->Location = System::Drawing::Point(881, 17);
 			this->upd_button->Name = L"upd_button";
 			this->upd_button->Size = System::Drawing::Size(88, 30);

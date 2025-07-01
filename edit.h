@@ -115,6 +115,8 @@ namespace practicmain1 {
 			// 
 			// edit_exit_button
 			// 
+			this->edit_exit_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)),
+				static_cast<System::Int32>(static_cast<System::Byte>(32)));
 			this->edit_exit_button->Location = System::Drawing::Point(531, 498);
 			this->edit_exit_button->Name = L"edit_exit_button";
 			this->edit_exit_button->Size = System::Drawing::Size(137, 43);
@@ -125,6 +127,8 @@ namespace practicmain1 {
 			// 
 			// edit_button
 			// 
+			this->edit_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)),
+				static_cast<System::Int32>(static_cast<System::Byte>(32)));
 			this->edit_button->Location = System::Drawing::Point(294, 498);
 			this->edit_button->Name = L"edit_button";
 			this->edit_button->Size = System::Drawing::Size(231, 43);
@@ -207,6 +211,8 @@ namespace practicmain1 {
 			// check_date
 			// 
 			this->check_date->AutoSize = true;
+			this->check_date->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)),
+				static_cast<System::Int32>(static_cast<System::Byte>(32)));
 			this->check_date->Location = System::Drawing::Point(18, 288);
 			this->check_date->Name = L"check_date";
 			this->check_date->Size = System::Drawing::Size(52, 17);
@@ -218,6 +224,8 @@ namespace practicmain1 {
 			// check_number
 			// 
 			this->check_number->AutoSize = true;
+			this->check_number->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)),
+				static_cast<System::Int32>(static_cast<System::Byte>(32)));
 			this->check_number->Location = System::Drawing::Point(17, 148);
 			this->check_number->Name = L"check_number";
 			this->check_number->Size = System::Drawing::Size(93, 17);
@@ -229,6 +237,8 @@ namespace practicmain1 {
 			// check_seats_count
 			// 
 			this->check_seats_count->AutoSize = true;
+			this->check_seats_count->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)),
+				static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)));
 			this->check_seats_count->Location = System::Drawing::Point(18, 424);
 			this->check_seats_count->Name = L"check_seats_count";
 			this->check_seats_count->Size = System::Drawing::Size(88, 17);
@@ -240,6 +250,8 @@ namespace practicmain1 {
 			// check_destination
 			// 
 			this->check_destination->AutoSize = true;
+			this->check_destination->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)),
+				static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)));
 			this->check_destination->Location = System::Drawing::Point(18, 221);
 			this->check_destination->Name = L"check_destination";
 			this->check_destination->Size = System::Drawing::Size(118, 17);
@@ -251,6 +263,8 @@ namespace practicmain1 {
 			// check_time
 			// 
 			this->check_time->AutoSize = true;
+			this->check_time->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)),
+				static_cast<System::Int32>(static_cast<System::Byte>(32)));
 			this->check_time->Location = System::Drawing::Point(18, 356);
 			this->check_time->Name = L"check_time";
 			this->check_time->Size = System::Drawing::Size(59, 17);
@@ -262,6 +276,8 @@ namespace practicmain1 {
 			// check_price
 			// 
 			this->check_price->AutoSize = true;
+			this->check_price->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)),
+				static_cast<System::Int32>(static_cast<System::Byte>(32)));
 			this->check_price->Location = System::Drawing::Point(18, 498);
 			this->check_price->Name = L"check_price";
 			this->check_price->Size = System::Drawing::Size(52, 17);
@@ -275,6 +291,8 @@ namespace practicmain1 {
 			this->info_label->AutoSize = true;
 			this->info_label->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
+			this->info_label->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)),
+				static_cast<System::Int32>(static_cast<System::Byte>(32)));
 			this->info_label->Location = System::Drawing::Point(276, 59);
 			this->info_label->Name = L"info_label";
 			this->info_label->Size = System::Drawing::Size(512, 408);
@@ -295,6 +313,8 @@ namespace practicmain1 {
 			this->index->AutoSize = true;
 			this->index->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
+			this->index->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)),
+				static_cast<System::Int32>(static_cast<System::Byte>(32)));
 			this->index->Location = System::Drawing::Point(15, 76);
 			this->index->Name = L"index";
 			this->index->Size = System::Drawing::Size(203, 17);
