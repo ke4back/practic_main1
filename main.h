@@ -1,6 +1,7 @@
 #pragma once
 #include"auth.h"
 #include"table.h"
+#include "Info.h"
 
 namespace practicmain1 {
 
@@ -40,6 +41,8 @@ namespace practicmain1 {
 	private: System::Windows::Forms::Button^ exit_button;
 	private: System::Windows::Forms::Button^ admin_auth_button;
 	private: System::Windows::Forms::Button^ guest_button;
+	private: System::Windows::Forms::Button^ info_btn;
+
 
 
 
@@ -63,6 +66,7 @@ namespace practicmain1 {
 			this->exit_button = (gcnew System::Windows::Forms::Button());
 			this->admin_auth_button = (gcnew System::Windows::Forms::Button());
 			this->guest_button = (gcnew System::Windows::Forms::Button());
+			this->info_btn = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// name
@@ -86,9 +90,9 @@ namespace practicmain1 {
 				static_cast<System::Byte>(204)));
 			this->exit_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)),
 				static_cast<System::Int32>(static_cast<System::Byte>(32)));
-			this->exit_button->Location = System::Drawing::Point(174, 350);
+			this->exit_button->Location = System::Drawing::Point(271, 344);
 			this->exit_button->Name = L"exit_button";
-			this->exit_button->Size = System::Drawing::Size(300, 80);
+			this->exit_button->Size = System::Drawing::Size(346, 80);
 			this->exit_button->TabIndex = 1;
 			this->exit_button->Text = L"выход";
 			this->exit_button->UseVisualStyleBackColor = true;
@@ -123,6 +127,18 @@ namespace practicmain1 {
 			this->guest_button->UseVisualStyleBackColor = true;
 			this->guest_button->Click += gcnew System::EventHandler(this, &main::button2_Click);
 			// 
+			// info_btn
+			// 
+			this->info_btn->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 25, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->info_btn->Location = System::Drawing::Point(17, 344);
+			this->info_btn->Name = L"info_btn";
+			this->info_btn->Size = System::Drawing::Size(248, 80);
+			this->info_btn->TabIndex = 2;
+			this->info_btn->Text = L"Справка";
+			this->info_btn->UseVisualStyleBackColor = true;
+			this->info_btn->Click += gcnew System::EventHandler(this, &main::info_btn_Click);
+			// 
 			// main
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -130,6 +146,7 @@ namespace practicmain1 {
 			this->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
 			this->BackColor = System::Drawing::Color::Silver;
 			this->ClientSize = System::Drawing::Size(634, 461);
+			this->Controls->Add(this->info_btn);
 			this->Controls->Add(this->admin_auth_button);
 			this->Controls->Add(this->guest_button);
 			this->Controls->Add(this->exit_button);
@@ -161,6 +178,10 @@ namespace practicmain1 {
 		this->Close();
 	}
 private: System::Void main_Load(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void info_btn_Click(System::Object^ sender, System::EventArgs^ e) {
+	Info^ Inf = gcnew Info();
+	Inf->ShowDialog();
 }
 };
 }

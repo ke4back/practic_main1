@@ -3,6 +3,7 @@
 #include "search.h"
 #include "delete_route.h"
 #include "add_route.h"
+#include "edit.h"
 
 namespace practicmain1 {
 
@@ -45,18 +46,9 @@ namespace practicmain1 {
 		}
 	private: System::Windows::Forms::DataGridView^ main_table;
 	protected:
-
-
-
-
-
-
-
 	private: System::Windows::Forms::Button^ table_exit_button;
 	private: System::Windows::Forms::Button^ search_routes_button;
 	private: System::Windows::Forms::Button^ change_button;
-
-
 	private: System::Windows::Forms::Button^ delete_route_button;
 	private: System::Windows::Forms::Button^ new_route_button;
 	private: System::Windows::Forms::Label^ table_name;
@@ -68,7 +60,7 @@ namespace practicmain1 {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ time;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ seats_count;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ price;
-
+	private: System::Windows::Forms::Button^ upd_button;
 
 	private:
 		/// <summary>
@@ -136,6 +128,7 @@ namespace practicmain1 {
 			this->new_route_button = (gcnew System::Windows::Forms::Button());
 			this->table_name = (gcnew System::Windows::Forms::Label());
 			this->back_button = (gcnew System::Windows::Forms::Button());
+			this->upd_button = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->main_table))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -239,6 +232,7 @@ namespace practicmain1 {
 			this->change_button->TabIndex = 8;
 			this->change_button->Text = L"изменение рейса";
 			this->change_button->UseVisualStyleBackColor = true;
+			this->change_button->Click += gcnew System::EventHandler(this, &table_admin1::change_button_Click);
 			// 
 			// delete_route_button
 			// 
@@ -287,12 +281,23 @@ namespace practicmain1 {
 			this->back_button->UseVisualStyleBackColor = true;
 			this->back_button->Click += gcnew System::EventHandler(this, &table_admin1::back_button_Click);
 			// 
+			// upd_button
+			// 
+			this->upd_button->Location = System::Drawing::Point(881, 17);
+			this->upd_button->Name = L"upd_button";
+			this->upd_button->Size = System::Drawing::Size(88, 30);
+			this->upd_button->TabIndex = 12;
+			this->upd_button->Text = L"Обновить";
+			this->upd_button->UseVisualStyleBackColor = true;
+			this->upd_button->Click += gcnew System::EventHandler(this, &table_admin1::upd_button_Click);
+			// 
 			// table_admin1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::Silver;
 			this->ClientSize = System::Drawing::Size(984, 661);
+			this->Controls->Add(this->upd_button);
 			this->Controls->Add(this->main_table);
 			this->Controls->Add(this->back_button);
 			this->Controls->Add(this->table_exit_button);
@@ -303,7 +308,7 @@ namespace practicmain1 {
 			this->Controls->Add(this->table_name);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->Name = L"table_admin1";
-			this->Text = L"table_admin";
+			this->Text = L"Таблица администратора";
 			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &table_admin1::table_admin1_FormClosing);
 			this->Load += gcnew System::EventHandler(this, &table_admin1::table_admin1_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->main_table))->EndInit();
@@ -340,6 +345,13 @@ private: System::Void delete_route_button_Click(System::Object^ sender, System::
 private: System::Void new_route_button_Click(System::Object^ sender, System::EventArgs^ e) {
 	add_route^ Add_Route = gcnew add_route();
 	Add_Route->ShowDialog();
+}
+private: System::Void change_button_Click(System::Object^ sender, System::EventArgs^ e) {
+	edit^ Edit = gcnew edit();
+	Edit->ShowDialog();
+}
+private: System::Void upd_button_Click(System::Object^ sender, System::EventArgs^ e) {
+	LoadRoutesData();
 }
 };
 }

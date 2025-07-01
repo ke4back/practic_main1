@@ -123,6 +123,7 @@
     <ClCompile Include="auth.cpp" />
     <ClCompile Include="delete_route.cpp" />
     <ClCompile Include="edit.cpp" />
+    <ClCompile Include="Info.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="search.cpp" />
     <ClCompile Include="table.cpp" />
@@ -139,6 +140,9 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="edit.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="Info.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="main.h">
@@ -167,6 +171,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="edit.resx">
       <DependentUpon>edit.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Info.resx">
+      <DependentUpon>Info.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="main.resx">
       <DependentUpon>main.h</DependentUpon>

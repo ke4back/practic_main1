@@ -59,6 +59,7 @@ namespace practicmain1 {
 	private: System::Windows::Forms::MaskedTextBox^ maskedTextBox_date;
 	private: System::Windows::Forms::MaskedTextBox^ maskedTextBox_price;
 	private: System::Windows::Forms::TextBox^ textBox_dest;
+	private: System::Windows::Forms::Label^ info_label;
 
 
 
@@ -71,6 +72,7 @@ namespace practicmain1 {
         /// </summary>
         void InitializeComponent(void)
         {
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(add_route::typeid));
 			this->add_mark = (gcnew System::Windows::Forms::Label());
 			this->number_add = (gcnew System::Windows::Forms::Label());
 			this->add_destination = (gcnew System::Windows::Forms::Label());
@@ -87,6 +89,7 @@ namespace practicmain1 {
 			this->maskedTextBox_date = (gcnew System::Windows::Forms::MaskedTextBox());
 			this->maskedTextBox_price = (gcnew System::Windows::Forms::MaskedTextBox());
 			this->textBox_dest = (gcnew System::Windows::Forms::TextBox());
+			this->info_label = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// add_mark
@@ -189,7 +192,7 @@ namespace practicmain1 {
 			// 
 			// add_button
 			// 
-			this->add_button->Location = System::Drawing::Point(420, 388);
+			this->add_button->Location = System::Drawing::Point(361, 512);
 			this->add_button->Name = L"add_button";
 			this->add_button->Size = System::Drawing::Size(231, 43);
 			this->add_button->TabIndex = 13;
@@ -203,7 +206,7 @@ namespace practicmain1 {
 			this->incorrect_data->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->incorrect_data->ForeColor = System::Drawing::Color::Maroon;
-			this->incorrect_data->Location = System::Drawing::Point(416, 365);
+			this->incorrect_data->Location = System::Drawing::Point(357, 486);
 			this->incorrect_data->Name = L"incorrect_data";
 			this->incorrect_data->Size = System::Drawing::Size(208, 20);
 			this->incorrect_data->TabIndex = 15;
@@ -212,9 +215,9 @@ namespace practicmain1 {
 			// 
 			// add_exit_button
 			// 
-			this->add_exit_button->Location = System::Drawing::Point(568, 514);
+			this->add_exit_button->Location = System::Drawing::Point(598, 512);
 			this->add_exit_button->Name = L"add_exit_button";
-			this->add_exit_button->Size = System::Drawing::Size(122, 38);
+			this->add_exit_button->Size = System::Drawing::Size(122, 43);
 			this->add_exit_button->TabIndex = 16;
 			this->add_exit_button->Text = L"Выход";
 			this->add_exit_button->UseVisualStyleBackColor = true;
@@ -225,7 +228,7 @@ namespace practicmain1 {
 			this->maskedTextBox_count->Location = System::Drawing::Point(61, 398);
 			this->maskedTextBox_count->Mask = L"000";
 			this->maskedTextBox_count->Name = L"maskedTextBox_count";
-			this->maskedTextBox_count->Size = System::Drawing::Size(218, 23);
+			this->maskedTextBox_count->Size = System::Drawing::Size(237, 23);
 			this->maskedTextBox_count->TabIndex = 17;
 			this->maskedTextBox_count->ValidatingType = System::Int32::typeid;
 			// 
@@ -234,7 +237,7 @@ namespace practicmain1 {
 			this->maskedTextBox_number->Location = System::Drawing::Point(61, 86);
 			this->maskedTextBox_number->Mask = L"00000";
 			this->maskedTextBox_number->Name = L"maskedTextBox_number";
-			this->maskedTextBox_number->Size = System::Drawing::Size(218, 23);
+			this->maskedTextBox_number->Size = System::Drawing::Size(237, 23);
 			this->maskedTextBox_number->TabIndex = 19;
 			this->maskedTextBox_number->ValidatingType = System::Int32::typeid;
 			// 
@@ -243,7 +246,7 @@ namespace practicmain1 {
 			this->maskedTextBox_time->Location = System::Drawing::Point(61, 308);
 			this->maskedTextBox_time->Mask = L"00:00";
 			this->maskedTextBox_time->Name = L"maskedTextBox_time";
-			this->maskedTextBox_time->Size = System::Drawing::Size(218, 23);
+			this->maskedTextBox_time->Size = System::Drawing::Size(237, 23);
 			this->maskedTextBox_time->TabIndex = 20;
 			this->maskedTextBox_time->ValidatingType = System::DateTime::typeid;
 			// 
@@ -252,7 +255,7 @@ namespace practicmain1 {
 			this->maskedTextBox_date->Location = System::Drawing::Point(61, 230);
 			this->maskedTextBox_date->Mask = L"00/00/0000";
 			this->maskedTextBox_date->Name = L"maskedTextBox_date";
-			this->maskedTextBox_date->Size = System::Drawing::Size(218, 23);
+			this->maskedTextBox_date->Size = System::Drawing::Size(237, 23);
 			this->maskedTextBox_date->TabIndex = 21;
 			this->maskedTextBox_date->ValidatingType = System::DateTime::typeid;
 			// 
@@ -261,7 +264,7 @@ namespace practicmain1 {
 			this->maskedTextBox_price->Location = System::Drawing::Point(60, 486);
 			this->maskedTextBox_price->Mask = L"000000";
 			this->maskedTextBox_price->Name = L"maskedTextBox_price";
-			this->maskedTextBox_price->Size = System::Drawing::Size(218, 23);
+			this->maskedTextBox_price->Size = System::Drawing::Size(238, 23);
 			this->maskedTextBox_price->TabIndex = 22;
 			this->maskedTextBox_price->ValidatingType = System::Int32::typeid;
 			// 
@@ -270,15 +273,27 @@ namespace practicmain1 {
 			this->textBox_dest->Location = System::Drawing::Point(60, 158);
 			this->textBox_dest->MaxLength = 20;
 			this->textBox_dest->Name = L"textBox_dest";
-			this->textBox_dest->Size = System::Drawing::Size(217, 23);
+			this->textBox_dest->Size = System::Drawing::Size(238, 23);
 			this->textBox_dest->TabIndex = 23;
+			// 
+			// info_label
+			// 
+			this->info_label->AutoSize = true;
+			this->info_label->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->info_label->Location = System::Drawing::Point(341, 53);
+			this->info_label->Name = L"info_label";
+			this->info_label->Size = System::Drawing::Size(512, 408);
+			this->info_label->TabIndex = 24;
+			this->info_label->Text = resources->GetString(L"info_label.Text");
 			// 
 			// add_route
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::Silver;
-			this->ClientSize = System::Drawing::Size(702, 564);
+			this->ClientSize = System::Drawing::Size(868, 564);
+			this->Controls->Add(this->info_label);
 			this->Controls->Add(this->textBox_dest);
 			this->Controls->Add(this->maskedTextBox_count);
 			this->Controls->Add(this->maskedTextBox_number);
@@ -383,6 +398,7 @@ private: System::Void add_route_Load_1(System::Object^ sender, System::EventArgs
 }
 private: System::Void add_exit_button_Click_1(System::Object^ sender, System::EventArgs^ e) {
 	this->Close();
+
 }
 };
 }

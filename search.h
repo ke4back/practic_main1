@@ -295,6 +295,13 @@ namespace practicmain1 {
 		void InitializeComponent(void)
 		{
             this->main_table = (gcnew System::Windows::Forms::DataGridView());
+            this->index = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+            this->number = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+            this->destination = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+            this->date = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+            this->time = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+            this->seats_count = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+            this->price = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
             this->check_price = (gcnew System::Windows::Forms::CheckBox());
             this->check_number = (gcnew System::Windows::Forms::CheckBox());
             this->check_date = (gcnew System::Windows::Forms::CheckBox());
@@ -319,13 +326,6 @@ namespace practicmain1 {
             this->maskedTextBox_dest = (gcnew System::Windows::Forms::MaskedTextBox());
             this->maskedTextBox_count = (gcnew System::Windows::Forms::MaskedTextBox());
             this->wrong_data = (gcnew System::Windows::Forms::Label());
-            this->index = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-            this->number = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-            this->destination = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-            this->date = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-            this->time = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-            this->seats_count = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-            this->price = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
             (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->main_table))->BeginInit();
             this->SuspendLayout();
             // 
@@ -347,6 +347,53 @@ namespace practicmain1 {
             this->main_table->Size = System::Drawing::Size(950, 319);
             this->main_table->TabIndex = 1;
             // 
+            // index
+            // 
+            this->index->HeaderText = L"Индекс";
+            this->index->Name = L"index";
+            this->index->ReadOnly = true;
+            this->index->Width = 50;
+            // 
+            // number
+            // 
+            this->number->HeaderText = L"Номер рейса";
+            this->number->Name = L"number";
+            this->number->ReadOnly = true;
+            // 
+            // destination
+            // 
+            this->destination->HeaderText = L"Пункт назначения";
+            this->destination->Name = L"destination";
+            this->destination->ReadOnly = true;
+            this->destination->Width = 200;
+            // 
+            // date
+            // 
+            this->date->HeaderText = L"Дата";
+            this->date->Name = L"date";
+            this->date->ReadOnly = true;
+            this->date->Width = 150;
+            // 
+            // time
+            // 
+            this->time->HeaderText = L"Время(чч:мм)";
+            this->time->Name = L"time";
+            this->time->ReadOnly = true;
+            this->time->Width = 150;
+            // 
+            // seats_count
+            // 
+            this->seats_count->HeaderText = L"кол-во мест";
+            this->seats_count->Name = L"seats_count";
+            this->seats_count->ReadOnly = true;
+            this->seats_count->Width = 150;
+            // 
+            // price
+            // 
+            this->price->HeaderText = L"цена";
+            this->price->Name = L"price";
+            this->price->ReadOnly = true;
+            // 
             // check_price
             // 
             this->check_price->AutoSize = true;
@@ -366,6 +413,7 @@ namespace practicmain1 {
             this->check_number->TabIndex = 2;
             this->check_number->Text = L"Номер рейса";
             this->check_number->UseVisualStyleBackColor = true;
+            this->check_number->CheckedChanged += gcnew System::EventHandler(this, &search::check_number_CheckedChanged);
             // 
             // check_date
             // 
@@ -591,53 +639,6 @@ namespace practicmain1 {
             this->wrong_data->Text = L"Неверно введены данные";
             this->wrong_data->Visible = false;
             // 
-            // index
-            // 
-            this->index->HeaderText = L"Индекс";
-            this->index->Name = L"index";
-            this->index->ReadOnly = true;
-            this->index->Width = 50;
-            // 
-            // number
-            // 
-            this->number->HeaderText = L"Номер рейса";
-            this->number->Name = L"number";
-            this->number->ReadOnly = true;
-            // 
-            // destination
-            // 
-            this->destination->HeaderText = L"Пункт назначения";
-            this->destination->Name = L"destination";
-            this->destination->ReadOnly = true;
-            this->destination->Width = 200;
-            // 
-            // date
-            // 
-            this->date->HeaderText = L"Дата";
-            this->date->Name = L"date";
-            this->date->ReadOnly = true;
-            this->date->Width = 150;
-            // 
-            // time
-            // 
-            this->time->HeaderText = L"Время(чч:мм)";
-            this->time->Name = L"time";
-            this->time->ReadOnly = true;
-            this->time->Width = 150;
-            // 
-            // seats_count
-            // 
-            this->seats_count->HeaderText = L"кол-во мест";
-            this->seats_count->Name = L"seats_count";
-            this->seats_count->ReadOnly = true;
-            this->seats_count->Width = 150;
-            // 
-            // price
-            // 
-            this->price->HeaderText = L"цена";
-            this->price->Name = L"price";
-            this->price->ReadOnly = true;
-            // 
             // search
             // 
             this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -749,6 +750,8 @@ private: System::Void search_FormClosing(System::Object^ sender, System::Windows
     if (e->CloseReason == CloseReason::UserClosing) {
         Application::Exit();
     }
+}
+private: System::Void check_number_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 }
 };
 }

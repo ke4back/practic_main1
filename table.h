@@ -56,6 +56,7 @@ namespace practicmain1 {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ time;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ seats_count;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ price;
+	private: System::Windows::Forms::Button^ upd_btn;
 
 	protected:
 
@@ -123,6 +124,7 @@ namespace practicmain1 {
 			this->time = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->seats_count = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->price = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->upd_btn = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->main_table))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -227,6 +229,16 @@ namespace practicmain1 {
 			this->price->Name = L"price";
 			this->price->ReadOnly = true;
 			// 
+			// upd_btn
+			// 
+			this->upd_btn->Location = System::Drawing::Point(878, 21);
+			this->upd_btn->Name = L"upd_btn";
+			this->upd_btn->Size = System::Drawing::Size(89, 33);
+			this->upd_btn->TabIndex = 4;
+			this->upd_btn->Text = L"Обновить";
+			this->upd_btn->UseVisualStyleBackColor = true;
+			this->upd_btn->Click += gcnew System::EventHandler(this, &table::upd_btn_Click);
+			// 
 			// table
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -234,6 +246,7 @@ namespace practicmain1 {
 			this->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
 			this->BackColor = System::Drawing::Color::Silver;
 			this->ClientSize = System::Drawing::Size(987, 661);
+			this->Controls->Add(this->upd_btn);
 			this->Controls->Add(this->main_table);
 			this->Controls->Add(this->table_exit_button);
 			this->Controls->Add(this->search_routes_button);
@@ -268,6 +281,9 @@ private: System::Void table_FormClosing(System::Object^ sender, System::Windows:
 	if (e->CloseReason == CloseReason::UserClosing) {
 		Application::Exit();
 	}
+}
+private: System::Void upd_btn_Click(System::Object^ sender, System::EventArgs^ e) {
+	LoadRoutesData();
 }
 };
 }
