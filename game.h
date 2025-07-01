@@ -8,6 +8,8 @@ namespace practicmain1 {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::IO;
+	using namespace System::Text;
 
 	/// <summary>
 	/// Summary for game
@@ -19,14 +21,123 @@ namespace practicmain1 {
 		game(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
+			InitializeGame();
 		}
 		game(Form^ obj6)
 		{
 			obj = obj6;
 			InitializeComponent();
+			InitializeGame();
+		}
+	
+	private:
+		int score;
+		int attempts;
+		bool game_over;
+		bool first_turn;
+		char last_letter;
+		String^ citiesFilePath;
+		String^ citiesOutFilePath;
+		StreamReader^ cities;
+		StreamWriter^ citiesOut;
+
+		void InitializeGame()
+		{		
+			score = 0;
+			attempts = 3;
+			game_over = false;
+			first_turn = true;
+			last_letter = '\0';
+
+			citiesFilePath = "CITIES.txt";
+			citiesOutFilePath = "cities_out.txt";
+
+			if (!File::Exists(citiesFilePath))
+			{
+				MessageBox::Show("Файл с городами не найден!", "Ошибка");
+				this->Close();
+				return;
+			}
+
+			File::WriteAllText(citiesOutFilePath, "", Encoding::GetEncoding(1251));
+
+			attempts_count->Text = attempts.ToString();
+			info_game->Text = "Введите первый город";
+			incorrect_data->Visible = false;
+			textBox1->ReadOnly = true;
+			textBox2->ReadOnly = false;
+		}
+
+		bool CityInFile(String^ city)
+		{
+			cities = gcnew StreamReader(citiesFilePath, Encoding::GetEncoding(1251));
+			bool found = false;
+			while (!cities->EndOfStream && !found)
+			{
+				String^ line = cities->ReadLine()->Trim();
+				if (line->Equals(city, StringComparison::CurrentCultureIgnoreCase))
+				{
+					found = true;
+				}
+			}
+			cities->Close();
+			return found;
+		}
+
+		bool CityWasUsed(String^ city)
+		{
+			if (!File::Exists(citiesOutFilePath))
+				return false;
+
+			StreamReader^ reader = gcnew StreamReader(citiesOutFilePath, Encoding::GetEncoding(1251));
+			bool found = false;
+			while (!reader->EndOfStream && !found)
+			{
+				String^ line = reader->ReadLine()->Trim();
+				if (line->Equals(city, StringComparison::CurrentCultureIgnoreCase))
+				{
+					found = true;
+				}
+			}
+			reader->Close();
+			return found;
+		}
+
+		void SaveUsedCity(String^ city)
+		{
+			citiesOut = gcnew StreamWriter(citiesOutFilePath, true, Encoding::GetEncoding(1251));
+			citiesOut->WriteLine(city);
+			citiesOut->Close();
+		}
+
+		String^ GetComputerCity(char letter)
+		{
+			cities = gcnew StreamReader(citiesFilePath, Encoding::GetEncoding(1251));
+			while (!cities->EndOfStream)
+			{
+				String^ city = cities->ReadLine()->Trim();
+
+				if (city->Length > 0 && Char::ToLower(city[0]) == Char::ToLower(letter))
+				{
+					if (!CityWasUsed(city))
+					{
+						cities->Close();
+						return city;
+					}
+				}
+			}
+			cities->Close();
+			return nullptr;
+		}
+
+		char GetLastLetter(String^ city)
+		{
+			char last = city[city->Length - 1];
+			if (last == 'ь' || last == 'ъ' || last == 'ы')
+			{
+				last = city[city->Length - 2];
+			}
+			return Char::ToLower(last);
 		}
 
 	protected:
@@ -55,17 +166,6 @@ namespace practicmain1 {
 	private: System::Windows::Forms::Button^ back_button;
 
 	protected:
-
-
-
-
-
-
-
-
-
-
-
 
 	private:
 		/// <summary>
@@ -190,6 +290,7 @@ namespace practicmain1 {
 			this->giveup_button->TabIndex = 11;
 			this->giveup_button->Text = L"Сдаться";
 			this->giveup_button->UseVisualStyleBackColor = true;
+			this->giveup_button->Click += gcnew System::EventHandler(this, &game::giveup_button_Click);
 			// 
 			// move_button
 			// 
@@ -201,6 +302,7 @@ namespace practicmain1 {
 			this->move_button->TabIndex = 12;
 			this->move_button->Text = L"Ходить";
 			this->move_button->UseVisualStyleBackColor = true;
+			this->move_button->Click += gcnew System::EventHandler(this, &game::move_button_Click);
 			// 
 			// guide_game
 			// 
@@ -246,17 +348,141 @@ namespace practicmain1 {
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->Name = L"game";
 			this->Text = L"game";
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &game::game_FormClosing);
 			this->Load += gcnew System::EventHandler(this, &game::game_Load);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
-	private: System::Void game_Load(System::Object^ sender, System::EventArgs^ e) {
+	 private:
+		 System::Void game_Load(System::Object^ sender, System::EventArgs^ e) {
+		 }
+
+		 System::Void back_button_Click(System::Object^ sender, System::EventArgs^ e) {
+			 this->Hide();
+			 obj->Show();
+		 }
+
+		 System::Void move_button_Click(System::Object^ sender, System::EventArgs^ e) {
+			 if (game_over) return;
+
+			 String^ city = textBox2->Text->Trim();
+
+			 // Проверка на пустой ввод
+			 if (city->Length == 0)
+			 {
+				 incorrect_data->Text = "Введите название города";
+				 incorrect_data->Visible = true;
+				 return;
+			 }
+
+			 // Проверка наличия города в базе
+			 if (!CityInFile(city))
+			 {
+				 incorrect_data->Text = "Такого города нет в базе";
+				 incorrect_data->Visible = true;
+				 attempts--;
+				 attempts_count->Text = attempts.ToString();
+
+				 if (attempts <= 0)
+				 {
+					 EndGame(false);
+				 }
+				 return;
+			 }
+
+			 // Проверка, не использовался ли город ранее
+			 if (CityWasUsed(city))
+			 {
+				 incorrect_data->Text = "Этот город уже был назван";
+				 incorrect_data->Visible = true;
+				 attempts--;
+				 attempts_count->Text = attempts.ToString();
+
+				 if (attempts <= 0)
+				 {
+					 EndGame(false);
+				 }
+				 return;
+			 }
+
+			 // Проверка первой буквы (если это не первый ход)
+			 if (!first_turn)
+			 {
+				 char firstChar = Char::ToLower(city[0]);
+				 if (firstChar != last_letter)
+				 {
+					 incorrect_data->Text = String::Format("Город должен начинаться на букву '{0}'", last_letter);
+					 incorrect_data->Visible = true;
+					 attempts--;
+					 attempts_count->Text = attempts.ToString();
+
+					 if (attempts <= 0)
+					 {
+						 EndGame(false);
+					 }
+					 return;
+				 }
+			 }
+
+			 // Все проверки пройдены
+			 incorrect_data->Visible = false;
+			 attempts = 3;
+			 attempts_count->Text = attempts.ToString();
+			 score += 50;
+
+			 // Сохраняем город игрока в использованные
+			 SaveUsedCity(city);
+
+			 // Определяем последнюю букву
+			 last_letter = GetLastLetter(city);
+
+			 // Ход компьютера
+			 String^ computerCity = GetComputerCity(last_letter);
+			 if (computerCity == nullptr)
+			 {
+				 EndGame(true);
+				 return;
+			 }
+
+			 // Обновляем поля: город игрока в textBox1, ответ компьютера в textBox2
+			 textBox1->Text = city;
+			 textBox2->Text = computerCity;
+
+			 // Сохраняем город компьютера в использованные
+			 SaveUsedCity(computerCity);
+
+			 // Определяем последнюю букву для следующего хода
+			 last_letter = GetLastLetter(computerCity);
+
+			 // Обновляем информацию для игрока
+			 info_game->Text = String::Format("Введите город на букву '{0}'", last_letter);
+			 first_turn = false;
+		 }
+
+		 System::Void giveup_button_Click(System::Object^ sender, System::EventArgs^ e) {
+			 EndGame(false);
+		 }
+
+		 void EndGame(bool playerWon)
+		 {
+			 game_over = true;
+			 textBox2->ReadOnly = true;
+
+			 if (playerWon)
+			 {
+				 info_game->Text = String::Format("Вы выиграли! Ваш счет: {0}", score);
+			 }
+			 else
+			 {
+				 info_game->Text = String::Format("Игра окончена. Ваш счет: {0}", score);
+			 }
+		 }
+	private: System::Void game_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+		if (e->CloseReason == CloseReason::UserClosing) {
+			Application::Exit();
+		}
 	}
-private: System::Void back_button_Click(System::Object^ sender, System::EventArgs^ e) {
-	this->Hide();
-	obj->Show();
-}
 };
 }
