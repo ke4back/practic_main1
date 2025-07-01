@@ -119,7 +119,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="add.cpp" />
+    <ClCompile Include="add_route.cpp" />
     <ClCompile Include="auth.cpp" />
     <ClCompile Include="delete_route.cpp" />
     <ClCompile Include="edit.cpp" />
@@ -129,7 +129,7 @@
     <ClCompile Include="table_admin1.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="add.h">
+    <ClInclude Include="add_route.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="auth.h">
@@ -156,8 +156,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="add.resx">
-      <DependentUpon>add.h</DependentUpon>
+    <EmbeddedResource Include="add_route.resx">
+      <DependentUpon>add_route.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="auth.resx">
       <DependentUpon>auth.h</DependentUpon>

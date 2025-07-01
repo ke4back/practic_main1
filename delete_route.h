@@ -186,10 +186,8 @@ private: System::Void delete_button_Click(System::Object^ sender, System::EventA
 			return;
 		}
 
-		// Читаем все строки из файла
 		array<String^>^ lines = File::ReadAllLines(filePath, System::Text::Encoding::GetEncoding(1251));
 
-		// Подтверждение удаления
 		String^ message = String::Format("Вы действительно хотите удалить строку {0}?\n\n{1}",
 			lineNumber, lines[lineNumber - 1]);
 
@@ -197,10 +195,8 @@ private: System::Void delete_button_Click(System::Object^ sender, System::EventA
 			MessageBoxButtons::YesNo,
 			MessageBoxIcon::Question) == System::Windows::Forms::DialogResult::Yes)
 		{
-			// Создаем временный файл
 			StreamWriter^ tempFile = gcnew StreamWriter(tempFilePath, false, System::Text::Encoding::GetEncoding(1251));
 
-			// Копируем все строки кроме удаляемой
 			for (int i = 0; i < lines->Length; i++)
 			{
 				if (i != lineNumber - 1)
@@ -210,14 +206,12 @@ private: System::Void delete_button_Click(System::Object^ sender, System::EventA
 			}
 			tempFile->Close();
 
-			// Удаляем оригинальный файл и переименовываем временный
 			File::Delete(filePath);
 			File::Move(tempFilePath, filePath);
 
 			MessageBox::Show("Строка успешно удалена!", "Успех",
 				MessageBoxButtons::OK, MessageBoxIcon::Information);
 
-			// Обновляем счетчик
 			routesCount--;
 			delete_label->Text = "Выберите индекс строки для удаления (1-" + routesCount + ")";
 			maskedTextBox1->Text = "";

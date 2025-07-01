@@ -21,9 +21,6 @@ namespace practicmain1 {
 		auth(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
 		}
 		auth(Form^ obj4)
 		{

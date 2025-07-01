@@ -24,7 +24,7 @@
     <ClCompile Include="table.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="add.cpp">
+    <ClCompile Include="add_route.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="search.cpp">
@@ -50,7 +50,7 @@
     <ClInclude Include="table.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="add.h">
+    <ClInclude Include="add_route.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="search.h">

@@ -2,6 +2,7 @@
 #include "Routes.h"
 #include "search.h"
 #include "delete_route.h"
+#include "add_route.h"
 
 namespace practicmain1 {
 
@@ -86,7 +87,6 @@ namespace practicmain1 {
 			{
 				main_table->Rows->Clear();
 
-				// Используем using для автоматического закрытия потока
 				String^ allText = File::ReadAllText("routes.txt", System::Text::Encoding::GetEncoding(1251));
 				array<String^>^ lines = allText->Split('\n');
 				int index = 1;
@@ -262,6 +262,7 @@ namespace practicmain1 {
 			this->new_route_button->TabIndex = 10;
 			this->new_route_button->Text = L"запись нового рейса";
 			this->new_route_button->UseVisualStyleBackColor = true;
+			this->new_route_button->Click += gcnew System::EventHandler(this, &table_admin1::new_route_button_Click);
 			// 
 			// table_name
 			// 
@@ -335,6 +336,10 @@ private: System::Void delete_route_button_Click(System::Object^ sender, System::
 	delete_route^ Delete = gcnew delete_route();
 	Delete->ShowDialog();
 	LoadRoutesData();
+}
+private: System::Void new_route_button_Click(System::Object^ sender, System::EventArgs^ e) {
+	add_route^ Add_Route = gcnew add_route();
+	Add_Route->ShowDialog();
 }
 };
 }
