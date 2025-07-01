@@ -1,6 +1,6 @@
 #pragma once
 #include "search.h"
-#include "cities_game.h"
+#include "game.h"
 
 namespace practicmain1 {
 
@@ -310,7 +310,7 @@ private: System::Void upd_btn_Click(System::Object^ sender, System::EventArgs^ e
 }
 private: System::Void game_button_Click(System::Object^ sender, System::EventArgs^ e) {
 	this->Hide();
-	cities_game^ Game = gcnew cities_game(this);
+	game^ Game = gcnew game(this);
 	Game->ShowDialog();
 }
 };

@@ -121,7 +121,6 @@
   <ItemGroup>
     <ClCompile Include="add_route.cpp" />
     <ClCompile Include="auth.cpp" />
-    <ClCompile Include="cities_game.cpp" />
     <ClCompile Include="delete_route.cpp" />
     <ClCompile Include="edit.cpp" />
     <ClCompile Include="game.cpp" />
@@ -136,9 +135,6 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="auth.h">
-      <FileType>CppForm</FileType>
-    </ClInclude>
-    <ClInclude Include="cities_game.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="delete_route.h">
@@ -173,9 +169,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="auth.resx">
       <DependentUpon>auth.h</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="cities_game.resx">
-      <DependentUpon>cities_game.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="delete_route.resx">
       <DependentUpon>delete_route.h</DependentUpon>

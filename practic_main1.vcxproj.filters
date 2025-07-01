@@ -42,9 +42,6 @@
     <ClCompile Include="Info.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="cities_game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -78,9 +75,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Info.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="cities_game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="game.h">
