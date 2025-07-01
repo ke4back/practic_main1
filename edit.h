@@ -8,6 +8,7 @@ namespace practicmain1 {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::IO;
 
 	/// <summary>
 	/// Summary for edit
@@ -18,11 +19,21 @@ namespace practicmain1 {
 		edit(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
+			incorrect_data->Visible = false;
+			SetControlsEnabled(false);
 		}
 
+	private:
+		void SetControlsEnabled(bool enabled)
+		{
+			maskedTextBox_number->Enabled = check_number->Checked;
+			maskedTextBox_dest->Enabled = check_destination->Checked;
+			maskedTextBox_date->Enabled = check_date->Checked;
+			maskedTextBox_time->Enabled = check_time->Checked;
+			maskedTextBox_count->Enabled = check_seats_count->Checked;
+			maskedTextBox_price->Enabled = check_price->Checked;
+		}
+		
 	protected:
 		/// <summary>
 		/// Clean up any resources being used.
@@ -52,6 +63,8 @@ namespace practicmain1 {
 	private: System::Windows::Forms::CheckBox^ check_time;
 	private: System::Windows::Forms::CheckBox^ check_price;
 	private: System::Windows::Forms::Label^ info_label;
+	private: System::Windows::Forms::MaskedTextBox^ maskedTextBox_index;
+	private: System::Windows::Forms::Label^ index;
 	private:
 		/// <summary>
 		/// Required designer variable.
@@ -83,6 +96,8 @@ namespace practicmain1 {
 			this->check_time = (gcnew System::Windows::Forms::CheckBox());
 			this->check_price = (gcnew System::Windows::Forms::CheckBox());
 			this->info_label = (gcnew System::Windows::Forms::Label());
+			this->maskedTextBox_index = (gcnew System::Windows::Forms::MaskedTextBox());
+			this->index = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// incorrect_data
@@ -114,8 +129,9 @@ namespace practicmain1 {
 			this->edit_button->Name = L"edit_button";
 			this->edit_button->Size = System::Drawing::Size(231, 43);
 			this->edit_button->TabIndex = 19;
-			this->edit_button->Text = L"Добавить запись";
+			this->edit_button->Text = L"Изменить запись";
 			this->edit_button->UseVisualStyleBackColor = true;
+			this->edit_button->Click += gcnew System::EventHandler(this, &edit::edit_button_Click);
 			// 
 			// edit_mark
 			// 
@@ -134,7 +150,7 @@ namespace practicmain1 {
 			// 
 			// maskedTextBox_count
 			// 
-			this->maskedTextBox_count->Location = System::Drawing::Point(18, 406);
+			this->maskedTextBox_count->Location = System::Drawing::Point(18, 447);
 			this->maskedTextBox_count->Mask = L"000";
 			this->maskedTextBox_count->Name = L"maskedTextBox_count";
 			this->maskedTextBox_count->Size = System::Drawing::Size(218, 20);
@@ -144,7 +160,7 @@ namespace practicmain1 {
 			// 
 			// maskedTextBox_dest
 			// 
-			this->maskedTextBox_dest->Location = System::Drawing::Point(18, 166);
+			this->maskedTextBox_dest->Location = System::Drawing::Point(18, 244);
 			this->maskedTextBox_dest->Name = L"maskedTextBox_dest";
 			this->maskedTextBox_dest->Size = System::Drawing::Size(218, 20);
 			this->maskedTextBox_dest->TabIndex = 28;
@@ -152,7 +168,7 @@ namespace practicmain1 {
 			// 
 			// maskedTextBox_number
 			// 
-			this->maskedTextBox_number->Location = System::Drawing::Point(19, 83);
+			this->maskedTextBox_number->Location = System::Drawing::Point(18, 171);
 			this->maskedTextBox_number->Mask = L"00000";
 			this->maskedTextBox_number->Name = L"maskedTextBox_number";
 			this->maskedTextBox_number->Size = System::Drawing::Size(218, 20);
@@ -162,7 +178,7 @@ namespace practicmain1 {
 			// 
 			// maskedTextBox_time
 			// 
-			this->maskedTextBox_time->Location = System::Drawing::Point(18, 321);
+			this->maskedTextBox_time->Location = System::Drawing::Point(18, 379);
 			this->maskedTextBox_time->Mask = L"00:00";
 			this->maskedTextBox_time->Name = L"maskedTextBox_time";
 			this->maskedTextBox_time->Size = System::Drawing::Size(218, 20);
@@ -172,7 +188,7 @@ namespace practicmain1 {
 			// 
 			// maskedTextBox_date
 			// 
-			this->maskedTextBox_date->Location = System::Drawing::Point(18, 245);
+			this->maskedTextBox_date->Location = System::Drawing::Point(18, 311);
 			this->maskedTextBox_date->Mask = L"00/00/0000";
 			this->maskedTextBox_date->Name = L"maskedTextBox_date";
 			this->maskedTextBox_date->Size = System::Drawing::Size(218, 20);
@@ -181,7 +197,7 @@ namespace practicmain1 {
 			// 
 			// maskedTextBox_price
 			// 
-			this->maskedTextBox_price->Location = System::Drawing::Point(18, 489);
+			this->maskedTextBox_price->Location = System::Drawing::Point(18, 521);
 			this->maskedTextBox_price->Mask = L"000000";
 			this->maskedTextBox_price->Name = L"maskedTextBox_price";
 			this->maskedTextBox_price->Size = System::Drawing::Size(218, 20);
@@ -191,17 +207,18 @@ namespace practicmain1 {
 			// check_date
 			// 
 			this->check_date->AutoSize = true;
-			this->check_date->Location = System::Drawing::Point(18, 222);
+			this->check_date->Location = System::Drawing::Point(18, 288);
 			this->check_date->Name = L"check_date";
 			this->check_date->Size = System::Drawing::Size(52, 17);
 			this->check_date->TabIndex = 21;
 			this->check_date->Text = L"Дата";
 			this->check_date->UseVisualStyleBackColor = true;
+			this->check_date->CheckedChanged += gcnew System::EventHandler(this, &edit::check_date_CheckedChanged);
 			// 
 			// check_number
 			// 
 			this->check_number->AutoSize = true;
-			this->check_number->Location = System::Drawing::Point(18, 60);
+			this->check_number->Location = System::Drawing::Point(17, 148);
 			this->check_number->Name = L"check_number";
 			this->check_number->Size = System::Drawing::Size(93, 17);
 			this->check_number->TabIndex = 22;
@@ -212,7 +229,7 @@ namespace practicmain1 {
 			// check_seats_count
 			// 
 			this->check_seats_count->AutoSize = true;
-			this->check_seats_count->Location = System::Drawing::Point(18, 383);
+			this->check_seats_count->Location = System::Drawing::Point(18, 424);
 			this->check_seats_count->Name = L"check_seats_count";
 			this->check_seats_count->Size = System::Drawing::Size(88, 17);
 			this->check_seats_count->TabIndex = 23;
@@ -223,7 +240,7 @@ namespace practicmain1 {
 			// check_destination
 			// 
 			this->check_destination->AutoSize = true;
-			this->check_destination->Location = System::Drawing::Point(18, 143);
+			this->check_destination->Location = System::Drawing::Point(18, 221);
 			this->check_destination->Name = L"check_destination";
 			this->check_destination->Size = System::Drawing::Size(118, 17);
 			this->check_destination->TabIndex = 24;
@@ -234,22 +251,24 @@ namespace practicmain1 {
 			// check_time
 			// 
 			this->check_time->AutoSize = true;
-			this->check_time->Location = System::Drawing::Point(18, 298);
+			this->check_time->Location = System::Drawing::Point(18, 356);
 			this->check_time->Name = L"check_time";
 			this->check_time->Size = System::Drawing::Size(59, 17);
 			this->check_time->TabIndex = 25;
 			this->check_time->Text = L"Время";
 			this->check_time->UseVisualStyleBackColor = true;
+			this->check_time->CheckedChanged += gcnew System::EventHandler(this, &edit::check_time_CheckedChanged);
 			// 
 			// check_price
 			// 
 			this->check_price->AutoSize = true;
-			this->check_price->Location = System::Drawing::Point(18, 466);
+			this->check_price->Location = System::Drawing::Point(18, 498);
 			this->check_price->Name = L"check_price";
 			this->check_price->Size = System::Drawing::Size(52, 17);
 			this->check_price->TabIndex = 26;
 			this->check_price->Text = L"Цена";
 			this->check_price->UseVisualStyleBackColor = true;
+			this->check_price->CheckedChanged += gcnew System::EventHandler(this, &edit::check_price_CheckedChanged);
 			// 
 			// info_label
 			// 
@@ -262,12 +281,34 @@ namespace practicmain1 {
 			this->info_label->TabIndex = 33;
 			this->info_label->Text = resources->GetString(L"info_label.Text");
 			// 
+			// maskedTextBox_index
+			// 
+			this->maskedTextBox_index->Location = System::Drawing::Point(18, 96);
+			this->maskedTextBox_index->Mask = L"00000";
+			this->maskedTextBox_index->Name = L"maskedTextBox_index";
+			this->maskedTextBox_index->Size = System::Drawing::Size(218, 20);
+			this->maskedTextBox_index->TabIndex = 34;
+			this->maskedTextBox_index->ValidatingType = System::Int32::typeid;
+			// 
+			// index
+			// 
+			this->index->AutoSize = true;
+			this->index->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->index->Location = System::Drawing::Point(15, 76);
+			this->index->Name = L"index";
+			this->index->Size = System::Drawing::Size(203, 17);
+			this->index->TabIndex = 35;
+			this->index->Text = L"Индекс рейса для изменения";
+			// 
 			// edit
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::Silver;
 			this->ClientSize = System::Drawing::Size(813, 560);
+			this->Controls->Add(this->index);
+			this->Controls->Add(this->maskedTextBox_index);
 			this->Controls->Add(this->info_label);
 			this->Controls->Add(this->maskedTextBox_count);
 			this->Controls->Add(this->maskedTextBox_dest);
@@ -292,7 +333,7 @@ namespace practicmain1 {
 
 		}
 #pragma endregion
-	private: System::Void incorrect_data_Click(System::Object^ sender, System::EventArgs^ e) {
+private: System::Void incorrect_data_Click(System::Object^ sender, System::EventArgs^ e) {
 	}
 private: System::Void maskedTextBox_dest_MaskInputRejected(System::Object^ sender, System::Windows::Forms::MaskInputRejectedEventArgs^ e) {
 	}
@@ -300,18 +341,215 @@ private: System::Void maskedTextBox_number_MaskInputRejected(System::Object^ sen
 	}
 private: System::Void maskedTextBox_time_MaskInputRejected(System::Object^ sender, System::Windows::Forms::MaskInputRejectedEventArgs^ e) {
 	}
-private: System::Void check_seats_count_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
-	}
 private: System::Void maskedTextBox_count_MaskInputRejected(System::Object^ sender, System::Windows::Forms::MaskInputRejectedEventArgs^ e) {
-	}
-private: System::Void check_destination_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 	}
 private: System::Void edit_mark_Click(System::Object^ sender, System::EventArgs^ e) {
 }
 private: System::Void edit_exit_button_Click(System::Object^ sender, System::EventArgs^ e) {
 	this->Close();
 }
-private: System::Void check_number_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+private: System::Void edit_button_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	incorrect_data->Visible = false;
+
+	int index;
+	if (!Int32::TryParse(maskedTextBox_index->Text, index) || index <= 0)
+	{
+		incorrect_data->Text = "Неверный индекс рейса!";
+		incorrect_data->Visible = true;
+		return;
+	}
+
+	if (!check_number->Checked && !check_destination->Checked && !check_date->Checked &&
+		!check_time->Checked && !check_seats_count->Checked && !check_price->Checked)
+	{
+		incorrect_data->Text = "Выберите хотя бы одно поле для изменения!";
+		incorrect_data->Visible = true;
+		return;
+	}
+
+	int routeNumber = 0;
+	if (check_number->Checked)
+	{
+		if (!Int32::TryParse(maskedTextBox_number->Text, routeNumber) || routeNumber <= 0 || routeNumber > 9999)
+		{
+			incorrect_data->Text = "Номер рейса должен быть от 1 до 9999!";
+			incorrect_data->Visible = true;
+			return;
+		}
+	}
+
+	String^ destination = "";
+	if (check_destination->Checked)
+	{
+		destination = maskedTextBox_dest->Text;
+		if (String::IsNullOrWhiteSpace(destination) || destination->Contains(" "))
+		{
+			incorrect_data->Text = "Пункт назначения не может быть пустым или содержать пробелы!";
+			incorrect_data->Visible = true;
+			return;
+		}
+	}
+
+	String^ dateStr = "";
+	if (check_date->Checked)
+	{
+		dateStr = maskedTextBox_date->Text;
+		DateTime dateValue;
+		if (!DateTime::TryParseExact(dateStr, "dd.MM.yyyy",
+			System::Globalization::CultureInfo::InvariantCulture,
+			System::Globalization::DateTimeStyles::None, dateValue))
+		{
+			incorrect_data->Text = "Неверный формат даты (дд.мм.гггг)!";
+			incorrect_data->Visible = true;
+			return;
+		}
+	}
+
+	String^ timeStr = "";
+	if (check_time->Checked)
+	{
+		timeStr = maskedTextBox_time->Text;
+		DateTime timeValue;
+		if (!DateTime::TryParseExact(timeStr, "HH:mm",
+			System::Globalization::CultureInfo::InvariantCulture,
+			System::Globalization::DateTimeStyles::None, timeValue))
+		{
+			incorrect_data->Text = "Неверный формат времени (чч:мм)!";
+			incorrect_data->Visible = true;
+			return;
+		}
+	}
+
+	int seats = 0;
+	if (check_seats_count->Checked)
+	{
+		if (!Int32::TryParse(maskedTextBox_count->Text, seats) || seats <= 0 || seats > 200)
+		{
+			incorrect_data->Text = "Количество мест должно быть от 1 до 200!";
+			incorrect_data->Visible = true;
+			return;
+		}
+	}
+
+	int price = 0;
+	if (check_price->Checked)
+	{
+		if (!Int32::TryParse(maskedTextBox_price->Text, price) || price <= 0 || price > 100000)
+		{
+			incorrect_data->Text = "Цена должна быть от 1 до 100000!";
+			incorrect_data->Visible = true;
+			return;
+		}
+	}
+
+	try
+	{
+		String^ filePath = "routes.txt";
+		String^ tempFilePath = Path::GetTempFileName();
+
+		StreamReader^ reader = gcnew StreamReader(filePath, System::Text::Encoding::GetEncoding(1251));
+		StreamWriter^ writer = gcnew StreamWriter(tempFilePath, false, System::Text::Encoding::GetEncoding(1251));
+
+		int currentIndex = 0;
+		bool found = false;
+		String^ line;
+
+		while ((line = reader->ReadLine()) != nullptr)
+		{
+			currentIndex++;
+			if (currentIndex == index)
+			{
+				found = true;
+				array<String^>^ parts = line->Split(' ');
+
+				if (check_number->Checked) parts[0] = routeNumber.ToString();
+				if (check_destination->Checked) parts[1] = destination;
+				if (check_date->Checked) parts[2] = dateStr;
+				if (check_time->Checked) parts[3] = timeStr;
+				if (check_seats_count->Checked) parts[4] = seats.ToString();
+				if (check_price->Checked) parts[5] = price.ToString();
+
+				writer->WriteLine(String::Join(" ", parts));
+			}
+			else
+			{
+				writer->WriteLine(line);
+			}
+		}
+
+		reader->Close();
+		writer->Close();
+
+		if (!found)
+		{
+			File::Delete(tempFilePath);
+			incorrect_data->Text = "Рейс с таким индексом не найден!";
+			incorrect_data->Visible = true;
+			return;
+		}
+
+		File::Delete(filePath);
+		File::Move(tempFilePath, filePath);
+
+		MessageBox::Show("Рейс успешно изменен!", "Успех",
+			MessageBoxButtons::OK, MessageBoxIcon::Information);
+
+		maskedTextBox_index->Text = "";
+		maskedTextBox_number->Text = "";
+		maskedTextBox_dest->Text = "";
+		maskedTextBox_date->Text = "";
+		maskedTextBox_time->Text = "";
+		maskedTextBox_count->Text = "";
+		maskedTextBox_price->Text = "";
+
+		check_number->Checked = false;
+		check_destination->Checked = false;
+		check_date->Checked = false;
+		check_time->Checked = false;
+		check_seats_count->Checked = false;
+		check_price->Checked = false;
+	}
+	catch (Exception^ ex)
+	{
+		MessageBox::Show("Ошибка при изменении рейса: " + ex->Message,
+			"Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+	}
+}
+private: System::Void check_number_CheckedChanged(System::Object^ sender, System::EventArgs^ e)
+{
+	maskedTextBox_number->Enabled = check_number->Checked;
+	if (!check_number->Checked) maskedTextBox_number->Text = "";
+}
+
+private: System::Void check_destination_CheckedChanged(System::Object^ sender, System::EventArgs^ e)
+{
+	maskedTextBox_dest->Enabled = check_destination->Checked;
+	if (!check_destination->Checked) maskedTextBox_dest->Text = "";
+}
+
+private: System::Void check_date_CheckedChanged(System::Object^ sender, System::EventArgs^ e)
+{
+	maskedTextBox_date->Enabled = check_date->Checked;
+	if (!check_date->Checked) maskedTextBox_date->Text = "";
+}
+
+private: System::Void check_time_CheckedChanged(System::Object^ sender, System::EventArgs^ e)
+{
+	maskedTextBox_time->Enabled = check_time->Checked;
+	if (!check_time->Checked) maskedTextBox_time->Text = "";
+}
+
+private: System::Void check_seats_count_CheckedChanged(System::Object^ sender, System::EventArgs^ e)
+{
+	maskedTextBox_count->Enabled = check_seats_count->Checked;
+	if (!check_seats_count->Checked) maskedTextBox_count->Text = "";
+}
+
+private: System::Void check_price_CheckedChanged(System::Object^ sender, System::EventArgs^ e)
+{
+	maskedTextBox_price->Enabled = check_price->Checked;
+	if (!check_price->Checked) maskedTextBox_price->Text = "";
 }
 };
 }

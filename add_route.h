@@ -36,12 +36,6 @@ namespace practicmain1 {
 
     private:
         System::Windows::Forms::Label^ add_mark;
-
-
-
-
-
-
         System::Windows::Forms::Label^ number_add;
         System::Windows::Forms::Label^ add_destination;
         System::Windows::Forms::Label^ add_time;
@@ -49,20 +43,15 @@ namespace practicmain1 {
         System::Windows::Forms::Label^ add_seats_count;
         System::Windows::Forms::Label^ add_price;
         System::Windows::Forms::Button^ add_button;
-
         System::Windows::Forms::Label^ incorrect_data;
 	private: System::Windows::Forms::Button^ add_exit_button;
 	private: System::Windows::Forms::MaskedTextBox^ maskedTextBox_count;
-
 	private: System::Windows::Forms::MaskedTextBox^ maskedTextBox_number;
 	private: System::Windows::Forms::MaskedTextBox^ maskedTextBox_time;
 	private: System::Windows::Forms::MaskedTextBox^ maskedTextBox_date;
 	private: System::Windows::Forms::MaskedTextBox^ maskedTextBox_price;
 	private: System::Windows::Forms::TextBox^ textBox_dest;
 	private: System::Windows::Forms::Label^ info_label;
-
-
-
         System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
@@ -325,9 +314,17 @@ namespace practicmain1 {
 		}
 #pragma endregion
 
-private: System::Void add_button_Click(System::Object^ sender, System::EventArgs^ e) 
+private: System::Void add_button_Click(System::Object^ sender, System::EventArgs^ e)
 {
-	if (String::IsNullOrWhiteSpace(textBox_dest->Text) || textBox_dest->Text->Contains(" ")) {
+	incorrect_data->Visible = false;
+
+	if (String::IsNullOrWhiteSpace(textBox_dest->Text)) {
+		incorrect_data->Text = "Введите пункт назначения!";
+		incorrect_data->Visible = true;
+		return;
+	}
+	if (textBox_dest->Text->Contains(" ")) {
+		incorrect_data->Text = "Пункт назначения не должен содержать пробелов!";
 		incorrect_data->Visible = true;
 		return;
 	}
@@ -336,6 +333,7 @@ private: System::Void add_button_Click(System::Object^ sender, System::EventArgs
 	if (!DateTime::TryParseExact(maskedTextBox_date->Text, "dd.MM.yyyy",
 		System::Globalization::CultureInfo::InvariantCulture,
 		System::Globalization::DateTimeStyles::None, dateValue)) {
+		incorrect_data->Text = "Неверный формат даты (требуется дд.мм.гггг)!";
 		incorrect_data->Visible = true;
 		return;
 	}
@@ -344,29 +342,46 @@ private: System::Void add_button_Click(System::Object^ sender, System::EventArgs
 	if (!DateTime::TryParseExact(maskedTextBox_time->Text, "HH:mm",
 		System::Globalization::CultureInfo::InvariantCulture,
 		System::Globalization::DateTimeStyles::None, timeValue)) {
+		incorrect_data->Text = "Неверный формат времени (требуется чч:мм)!";
 		incorrect_data->Visible = true;
 		return;
 	}
 
 	int seats;
-	if (!Int32::TryParse(maskedTextBox_count->Text, seats) || seats <= 0 || seats > 200) {
+	if (!Int32::TryParse(maskedTextBox_count->Text, seats)) {
+		incorrect_data->Text = "Введите количество мест!";
+		incorrect_data->Visible = true;
+		return;
+	}
+	if (seats <= 0 || seats > 200) {
+		incorrect_data->Text = "Количество мест должно быть от 1 до 200!";
 		incorrect_data->Visible = true;
 		return;
 	}
 
 	int price;
-	if (!Int32::TryParse(maskedTextBox_price->Text, price) || price <= 0 || price > 100000) {
+	if (!Int32::TryParse(maskedTextBox_price->Text, price)) {
+		incorrect_data->Text = "Введите цену билета!";
+		incorrect_data->Visible = true;
+		return;
+	}
+	if (price <= 0 || price > 100000) {
+		incorrect_data->Text = "Цена билета должна быть от 1 до 100000!";
 		incorrect_data->Visible = true;
 		return;
 	}
 
 	int routeNumber;
-	if (!Int32::TryParse(maskedTextBox_number->Text, routeNumber) || routeNumber <= 0 || routeNumber > 9999) {
+	if (!Int32::TryParse(maskedTextBox_number->Text, routeNumber)) {
+		incorrect_data->Text = "Введите номер рейса!";
 		incorrect_data->Visible = true;
 		return;
 	}
-
-	incorrect_data->Visible = false;
+	if (routeNumber <= 0 || routeNumber > 9999) {
+		incorrect_data->Text = "Номер рейса должен быть от 1 до 9999!";
+		incorrect_data->Visible = true;
+		return;
+	}
 
 	try {
 		StreamWriter^ sw = gcnew StreamWriter("routes.txt", true, System::Text::Encoding::GetEncoding(1251));
@@ -398,7 +413,6 @@ private: System::Void add_route_Load_1(System::Object^ sender, System::EventArgs
 }
 private: System::Void add_exit_button_Click_1(System::Object^ sender, System::EventArgs^ e) {
 	this->Close();
-
 }
 };
 }
