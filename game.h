@@ -239,6 +239,7 @@ namespace practicmain1 {
 				static_cast<System::Byte>(204)));
 			this->attempts_count->Location = System::Drawing::Point(243, 237);
 			this->attempts_count->Name = L"attempts_count";
+			this->attempts_count->ReadOnly = true;
 			this->attempts_count->Size = System::Drawing::Size(37, 26);
 			this->attempts_count->TabIndex = 18;
 			// 
@@ -383,7 +384,6 @@ namespace practicmain1 {
 
 			 String^ city = textBox2->Text->Trim();
 
-			 // Проверка на пустой ввод
 			 if (city->Length == 0)
 			 {
 				 incorrect_data->Text = "Введите название города";
@@ -391,7 +391,6 @@ namespace practicmain1 {
 				 return;
 			 }
 
-			 // Проверка наличия города в базе
 			 if (!CityInFile(city))
 			 {
 				 incorrect_data->Text = "Такого города нет в базе";
@@ -406,7 +405,6 @@ namespace practicmain1 {
 				 return;
 			 }
 
-			 // Проверка, не использовался ли город ранее
 			 if (CityWasUsed(city))
 			 {
 				 incorrect_data->Text = "Этот город уже был назван";
@@ -421,7 +419,6 @@ namespace practicmain1 {
 				 return;
 			 }
 
-			 // Проверка первой буквы (если это не первый ход)
 			 if (!first_turn)
 			 {
 				 char firstChar = Char::ToLower(city[0]);
@@ -444,19 +441,15 @@ namespace practicmain1 {
 				 }
 			 }
 
-			 // Все проверки пройдены
 			 incorrect_data->Visible = false;
 			 attempts = 3;
 			 attempts_count->Text = attempts.ToString();
 			 score += 50;
 
-			 // Сохраняем город игрока в использованные
 			 SaveUsedCity(city);
 
-			 // Определяем последнюю букву
 			 last_letter = GetLastLetter(city);
 
-			 // Ход компьютера
 			 String^ computerCity = GetComputerCity(last_letter);
 			 if (computerCity == nullptr)
 			 {
@@ -464,17 +457,13 @@ namespace practicmain1 {
 				 return;
 			 }
 
-			 // Обновляем поля: город игрока в textBox1, ответ компьютера в textBox2
-			 textBox1->Text = city;
-			 textBox2->Text = computerCity;
+			 textBox1->Text = computerCity;
+			 textBox2->Text = city;
 
-			 // Сохраняем город компьютера в использованные
 			 SaveUsedCity(computerCity);
 
-			 // Определяем последнюю букву для следующего хода
 			 last_letter = GetLastLetter(computerCity);
 
-			 // Обновляем информацию для игрока
 			 info_game->Text = String::Format("Введите город на букву '{0}'", last_letter);
 			 first_turn = false;
 		 }
