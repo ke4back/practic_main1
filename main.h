@@ -21,9 +21,6 @@ namespace practicmain1 {
 		main(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
 		}
 
 	protected:

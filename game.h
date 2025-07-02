@@ -144,7 +144,8 @@ namespace practicmain1 {
 
 			if (lastChar->Equals("ü", StringComparison::CurrentCultureIgnoreCase) ||
 				lastChar->Equals("ú", StringComparison::CurrentCultureIgnoreCase) ||
-				lastChar->Equals("û", StringComparison::CurrentCultureIgnoreCase))
+				lastChar->Equals("û", StringComparison::CurrentCultureIgnoreCase) ||
+				lastChar->Equals("é", StringComparison::CurrentCultureIgnoreCase))
 			{
 				if (city->Length > 1)
 					lastChar = city->Substring(city->Length - 2, 1);

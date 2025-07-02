@@ -54,6 +54,7 @@ namespace practicmain1 {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(Info::typeid));
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->info_label = (gcnew System::Windows::Forms::Label());
 			this->exit_button = (gcnew System::Windows::Forms::Button());
@@ -68,6 +69,7 @@ namespace practicmain1 {
 			this->textBox1->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
 			this->textBox1->Size = System::Drawing::Size(401, 400);
 			this->textBox1->TabIndex = 0;
+			this->textBox1->Text = resources->GetString(L"textBox1.Text");
 			// 
 			// info_label
 			// 
